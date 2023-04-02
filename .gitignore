@@ -1,24 +1,39 @@
-# Logs
-logs
-*.log
+# Dependências
+node_modules/
+*.pnp.js
+.pnp/
+yarn.lock
+package-lock.json
+package.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Arquivos gerados pelo build
+build/
+dist/
+coverage/
+public/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+# Arquivos gerados pelo editor
+.vscode/
+*.code-workspace
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Outros arquivos gerados
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.log
+*.log*
+*.bak
+*.zip
+*.tar.gz

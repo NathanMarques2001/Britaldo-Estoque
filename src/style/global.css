@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  font-family: 'Roboto', sans-serif;
+  --background: #1B264F;
+  --button: #274690;
+  --margin: #576CA8;
+  --focus: #302B27;
+  --lightgray: #F5F3F5;
+  --placeholder: #807D7D;
+}
