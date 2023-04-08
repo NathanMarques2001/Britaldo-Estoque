@@ -1,20 +1,25 @@
 import './style.css'
 
 export function Home() {
-
   return (
     <div>
-      {<div class="home">
+      <div class="home">
         <div class="cabecalho">
-          <img src="assets/logo-preta.svg"></img>
-          <p>Estoque</p>
-          <p>Usuários</p>
-          <p>Sair</p>
+          <img src="../assets/logo-preta.svg"></img>
+          <div>
+            <p>Estoque</p>
+            <p>Usuários</p>
+            <p>Sair</p>
+          </div>
         </div>
+        <button type="submit">Adicionar produto</button>
+        <label for="produto">Insira o nome do produto</label>
         <div class="tabela">
-          <button type="submit">Adicionar produto</button>
-          <label for="produto">Insira o nome do produto</label>
-          <input type="text" id="produto" name="Insira o nome do produto"></input>
+          <input
+            type="text"
+            id="produto"
+            name="Insira o nome do produto"
+          ></input>
         </div>
         <div class="produtos">
           <h2>Nome</h2>
@@ -48,9 +53,8 @@ export function Home() {
             <img src="assets/editar.svg"></img>
             <img src="assets/excluir.svg"></img>
           </div>
-
         </div>
-      </div>}
+      </div>
     </div>
   )
 }

@@ -1,0 +1,51 @@
+#body-login{
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.5%;
+  height: 100vh;
+}
+
+#container-login{
+  background-color: var(--lightgray);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+  height: 80%;
+  border-radius: 20px;
+}
+
+#ImgLogo{
+  width: 55%;
+  padding: 0 0 10% 0;
+}
+
+#form-login{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.label-login{
+  margin: 0 0 3% 0;
+}
+
+.input-login{
+  padding: 8.5%;
+  background-color: var(--lightgray);
+  border: 1px solid var(--margin);
+  border-radius: 12px;
+  margin: 0 0 10% 0;
+}
+
+#ImgLogin{
+  width: 40%;
+}
+
+#botao-login{
+  background-color: var(--background);
+  color: var(--lightgray);
+}
