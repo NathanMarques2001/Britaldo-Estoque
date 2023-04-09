@@ -1,6 +1,6 @@
 import './style.css'
-import { Navbar } from '../components/navbar'
-import { Table } from '../components/table'
+import { Navbar } from '../../components/navbar'
+import { Table } from '../../components/table'
 
 export function Home() {
   return (
