@@ -1,0 +1,15 @@
+#container-home {
+  background-color: var(--background);
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#busca-nome-produto {
+  width: 65%;
+  padding: 1.5%;
+  border: 1px solid var(--margin);
+  border-radius: 8px;
+  margin: 2% 0 2% 0;
+}

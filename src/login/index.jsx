@@ -6,7 +6,7 @@ export function Login() {
   return (
     <div id="body-login">
       <div id="container-login">
-        <img src={ImgLogo} id='ImgLogo'/>
+        <img src={ImgLogo} id="ImgLogo" />
         <form id="form-login">
           <label for="login" className="label-login" id="label-user">
             Login
@@ -28,10 +28,12 @@ export function Login() {
             className="input-login"
             id="input-senha"
           />
-          <button type="submit" id='botao-login'>Login</button>
+          <button type="submit" id="botao-login">
+            Login
+          </button>
         </form>
       </div>
-      <img src={ImgLogin} id="ImgLogin"/>
+      <img src={ImgLogin} id="ImgLogin" />
     </div>
   )
 }

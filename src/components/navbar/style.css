@@ -1,0 +1,21 @@
+#container-navbar {
+  background-color: var(--background);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2%;
+}
+
+#logo-nav {
+  width: 15%;
+}
+
+#links-navbar {
+  display: flex;
+  width: 30%;
+  justify-content: space-between;
+}
+
+.link-nav {
+  color: var(--lightgray);
+}
