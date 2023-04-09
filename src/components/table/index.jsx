@@ -18,7 +18,7 @@ export function Table({ titulo2, titulo3, quantidadeBotoes }) {
         <td>Papel branco</td>
         <td>
           {quantidadeBotoes > 2 ? (
-            <button>
+          <button>
               <img src={Baixa} alt="" />
             </button>
           ) : (

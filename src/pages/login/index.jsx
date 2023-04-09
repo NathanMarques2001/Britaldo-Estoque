@@ -11,7 +11,7 @@ export function Login() {
 
   function handleSubmit(event) {
     event.preventDefault()
-
+    
     if (validateEmail(email) && validatePassword(password)) {
       signIn(email, password)
     } else if (!validateEmail(email)) {
@@ -48,7 +48,7 @@ export function Login() {
             Senha
           </label>
           <input
-            type="current-password"
+            type="password"
             name="senha"
             placeholder="Insira sua senha"
             className="input-login"

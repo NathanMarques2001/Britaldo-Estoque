@@ -1,8 +1,11 @@
 import './style.css'
+import { Navbar } from '../../components/navbar'
 
 export function Users() {
   return (
-    <div>
+    <>
+    <Navbar/>
+    <div id='users-container'>
       <div class="cabecalho">
         <img src="assets/logo-preta.svg"></img>
         <p>Estoque</p>
@@ -28,5 +31,6 @@ export function Users() {
         <img src="assets/excluir.svg"></img>
       </div>
     </div>
+    </>
   )
 }
