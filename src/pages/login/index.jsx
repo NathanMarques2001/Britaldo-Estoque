@@ -3,6 +3,7 @@ import ImgLogin from '../../assets/rafiki.svg'
 import ImgLogo from '../../assets/logo-preta.svg'
 import { signIn } from '../../services/signIn'
 import { useState } from 'react'
+import { validateEmail, validatePassword } from '../../utils/regex'
 
 export function Login() {
   const [email, setEmail] = useState('')
@@ -11,7 +12,19 @@ export function Login() {
   function handleSubmit(event) {
     event.preventDefault()
 
-    signIn(email, password)
+    if (validateEmail(email) && validatePassword(password)) {
+      signIn(email, password)
+    } else if (!validateEmail(email)) {
+      console.log(
+        'email invalido! Favor inserir um e-mail válido. Ex: email@email.com',
+      )
+    } else if (!validatePassword(password)) {
+      console.log(
+        'senha invalida! Favor inserir uma senha com no minimo 6 digitos!',
+      )
+    } else {
+      console.log('email e senha inválidos!')
+    }
   }
 
   return (
@@ -19,11 +32,11 @@ export function Login() {
       <div id="container-login">
         <img src={ImgLogo} id="ImgLogo" />
         <form onSubmit={handleSubmit} id="form-login">
-          <label for="login" className="label-login" id="label-user">
+          <label htmlFor="login" className="label-login" id="label-user">
             Login
           </label>
           <input
-            type="text"
+            type="email"
             name="login"
             placeholder="Nome de usuário ou e-mail"
             className="input-login"
@@ -31,11 +44,11 @@ export function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <label for="senha" className="label-login" id="label-senha">
+          <label htmlFor="senha" className="label-login" id="label-senha">
             Senha
           </label>
           <input
-            type="password"
+            type="current-password"
             name="senha"
             placeholder="Insira sua senha"
             className="input-login"

@@ -7,9 +7,11 @@ export function signIn(email, password) {
     .then((userCredential) => {
       const user = userCredential.user
       //logged
+      console.log("logado")
     })
     .catch((error) => {
       const errorCode = error.code
       const errorMessage = error.message
+      console.log("nao cadastrado!")
     })
 }
