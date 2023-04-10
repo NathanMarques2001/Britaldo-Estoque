@@ -1,0 +1,21 @@
+#tabela-usuarios {
+    width: 90%;
+    background-color: var(--lightgray);
+    border-radius: 12px;
+    max-height: 80vh;
+}
+
+table tr th {
+    font-size: max(8px, min(2.5vw, 20px));
+    padding: 1%;
+}
+
+table tr td {
+    text-align: center;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+
+table tr button {
+    padding: 0 3%;
+}
