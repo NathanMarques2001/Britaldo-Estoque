@@ -4,16 +4,34 @@ import './style.css'
 
 export function AddUserModal() {
   const [open, setOpen] = useState(false)
-  const [productName, setProductName] = useState('')
-  const [quantity, setQuantity] = useState('')
-  const [observations, setObservations] = useState('')
+  const [nome, setNome] = useState('')
+  const [email, setEmail] = useState('')
+  const [senha, setSenha] = useState('')
+  const [cargo, setCargo] = useState('')
+  const [permissao, setPermissao] = useState('')
+  const [opcoes, setOpcoes] = useState([
+    { value: '', label: '' },
+    { value: 'Admin', label: 'Administrador' },
+    { value: 'User', label: 'Usuário' },
+  ])
 
   const handleSubmit = (event) => {
     event.preventDefault()
     // Implemente aqui a lógica para enviar as informações do modal
-    console.log('Produto:', productName)
-    console.log('Quantidade:', quantity)
-    console.log('Observações:', observations)
+    const user = {
+      Nome: nome,
+      Email: email,
+      Senha: senha,
+      Cargo: cargo,
+      Permissão: permissao,
+    }
+    console.log(user)
+
+    setNome('')
+    setEmail('')
+    setSenha('')
+    setCargo('')
+    setPermissao('')
     // Fecha o modal
     setOpen(false)
   }
@@ -21,32 +39,83 @@ export function AddUserModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <button onClick={() => setOpen(true)}>Abrir Modal</button>
+        <button id="abrir-modal" onClick={() => setOpen(true)}>
+          Abrir Modal
+        </button>
       </DialogTrigger>
       <DialogContent>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="productName">Nome do Produto:</label>
-          <input
-            type="text"
-            id="productName"
-            value={productName}
-            onChange={(event) => setProductName(event.target.value)}
-          />
-          <label htmlFor="quantity">Quantidade:</label>
-          <input
-            type="number"
-            id="quantity"
-            value={quantity}
-            onChange={(event) => setQuantity(event.target.value)}
-          />
-          <label htmlFor="observations">Observações:</label>
-          <textarea
-            id="observations"
-            value={observations}
-            onChange={(event) => setObservations(event.target.value)}
-          />
-          <button type="submit">Salvar</button>
-        </form>
+        <div id="container-modalUser">
+          <div id="container-titlo-modalUser">
+            <h3 id="modalUser-titulo">Insira os dados do usuário</h3>
+          </div>
+          <form onSubmit={handleSubmit} id="modalUser-form">
+            <div className="label-input-modalUser">
+              <label htmlFor="modalUser-nome">Nome</label>
+              <input
+                type="text"
+                id="modalUser-nome"
+                className="input-ModalUser"
+                placeholder="Insira o nome do usuário"
+                value={nome}
+                onChange={(event) => setNome(event.target.value)}
+              />
+            </div>
+
+            <div className="label-input-modalUser">
+              <label htmlFor="modalUser-email">E-mail</label>
+              <input
+                type="email"
+                id="modalUser-email"
+                className="input-ModalUser"
+                placeholder="Ex: email@email.com"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </div>
+
+            <div className="label-input-modalUser">
+              <label htmlFor="modalUser-senha">Senha</label>
+              <input
+                type="password"
+                id="modalUser-senha"
+                className="input-ModalUser"
+                placeholder="Insira a senha"
+                value={senha}
+                onChange={(event) => setSenha(event.target.value)}
+              />
+            </div>
+
+            <div className="label-input-modalUser">
+              <label htmlFor="modalUser-permissoes">Permissões</label>
+              <select
+                name="permissoes"
+                id="modalUser-permissoes"
+                className="input-ModalUser"
+                value={permissao}
+                onChange={(event) => setPermissao(event.target.value)}
+              >
+                {opcoes.map((itens) => (
+                  <option key={itens.value} value={itens.value}>
+                    {itens.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="label-input-modalUser">
+              <label htmlFor="modalUser-cargo">Cargo</label>
+              <input
+                type="text"
+                id="modalUser-cargo"
+                className="input-ModalUser"
+                placeholder="Insira o cargo"
+                value={cargo}
+                onChange={(event) => setCargo(event.target.value)}
+              />
+            </div>
+            <button type="submit">Salvar</button>
+          </form>
+        </div>
       </DialogContent>
     </Dialog>
   )

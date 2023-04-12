@@ -22,7 +22,7 @@ export function AddProductModal() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         {/* nao precisa mexer aqui */}
-        <button onClick={() => setOpen(true)}>Abrir Modal</button>
+        <button id="abrir-modal" onClick={() => setOpen(true)}>Abrir Modal</button>
       </DialogTrigger>
       <DialogContent>
         <form onSubmit={handleSubmit}>
