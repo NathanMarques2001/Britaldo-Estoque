@@ -1,7 +1,7 @@
 import './style.css'
 import ImgLogin from '../../assets/rafiki.svg'
 import ImgLogo from '../../assets/logo-preta.svg'
-import { signIn } from '../../services/signIn'
+import { signIn } from '../../services/firebaseFunctions'
 import { useState } from 'react'
 import { validateEmail, validatePassword } from '../../utils/regex'
 
