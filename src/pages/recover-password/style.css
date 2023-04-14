@@ -1,0 +1,51 @@
+#recoverPassword-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5%;
+}
+
+#recoverPassword-img {
+  width: 45%;
+}
+
+#recoverPassword-form {
+  background-color: var(--lightgray);
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+}
+
+#recoverPassword-label {
+  border-bottom: 1px solid var(--margin);
+}
+
+#recoverPassword-label,
+#recoverPassword-div-texto,
+#recoverPassword-div-input,
+#recoverPassword-input,
+#recoverPassword-div-button {
+  padding: 3%;
+}
+
+#recoverPassword-input,
+#recoverPassword-div-button {
+  width: 100%;
+}
+
+#recoverPassword-input {
+  background-color: var(--lightgray);
+  border: 1px solid var(--margin);
+  border-radius: 8px;
+}
+
+#recoverPassword-div-button {
+  display: flex;
+  gap: 2.5%;
+  justify-content: center;
+  border-top: 1px solid var(--margin);
+}
