@@ -13,5 +13,3 @@ function recoverPassword(email) {
       }
     })
 }
-
-recoverPassword("nathanbrandao1@gmail.com")

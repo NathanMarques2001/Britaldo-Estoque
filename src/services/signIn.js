@@ -1,5 +1,5 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { app } from './firebaseConfig'
+import { app } from './firebaseConfig.js'
 
 export function signIn(email, password) {
   const auth = getAuth(app)
@@ -8,6 +8,7 @@ export function signIn(email, password) {
       const user = userCredential.user
       //logged
       console.log("logado")
+      console.log(isLogged());
     })
     .catch((error) => {
       const errorCode = error.code

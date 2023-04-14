@@ -36,3 +36,4 @@ public/
 *.bak
 *.zip
 *.tar.gz
+*.env
