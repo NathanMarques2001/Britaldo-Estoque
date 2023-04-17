@@ -1,6 +1,7 @@
 import { Dialog, DialogTrigger, DialogContent } from '@radix-ui/react-dialog'
 import { useState } from 'react'
 import './style.css'
+import { DarkButton } from '../../button/dark-button'
 
 export function AddUserModal() {
   const [open, setOpen] = useState(false)
@@ -113,7 +114,7 @@ export function AddUserModal() {
                 onChange={(event) => setCargo(event.target.value)}
               />
             </div>
-            <button type="submit">Salvar</button>
+            <DarkButton text="Salvar" />
           </form>
         </div>
       </DialogContent>

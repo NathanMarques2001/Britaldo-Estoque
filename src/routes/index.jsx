@@ -1,9 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
 import { Home } from '../pages/home'
 import { Login } from '../pages/login'
 import { Users } from '../pages/users'
-import { AddProductModal } from '../components/modal/product'
-import { AddUserModal } from '../components/modal/user'
 import { RecoverPassword } from '../pages/recover-password'
 
 export function AppRoutes() {
@@ -13,8 +12,6 @@ export function AppRoutes() {
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/users" element={<Users />} />
-          <Route path="/modal-produto" element={<AddProductModal />} />
-          <Route path="/modal-user" element={<AddUserModal />} />
           <Route path="/recover" element={<RecoverPassword />} />
         </Routes>
       </Router>

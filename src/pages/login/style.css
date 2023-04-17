@@ -42,10 +42,5 @@
 }
 
 #ImgLogin {
-  width: 40%;
-}
-
-#botao-login {
-  background-color: var(--background);
-  color: var(--lightgray);
+  width: 45%;
 }

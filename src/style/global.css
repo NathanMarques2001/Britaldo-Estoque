@@ -10,4 +10,8 @@
   --focus: #302B27;
   --lightgray: #F5F3F5;
   --placeholder: #807D7D;
+  --send: rgb(35, 148, 35);
+  --sendHover: rgb(20, 78, 20);
+  --cancel: rgb(165, 37, 37);
+  --cancelHover: rgb(90, 19, 19);
 }

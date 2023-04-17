@@ -49,3 +49,32 @@
   justify-content: center;
   border-top: 1px solid var(--margin);
 }
+
+#button-send,
+#button-cancel {
+  width: 25%;
+  padding: 2%;
+  font-weight: bold;
+  color: var(--lightgray);
+  border-radius: 8px;
+}
+
+#button-send {
+  background-color: var(--send);
+  border: 1px solid var(--sendHover);
+}
+
+#button-send:hover {
+  background-color: var(--sendHover);
+  cursor: pointer;
+}
+
+#button-cancel {
+  background-color: var(--cancel);
+  border: 1px solid var(--cancelHover);
+}
+
+#button-cancel:hover {
+  background-color: var(--cancelHover);
+  cursor: pointer;
+}

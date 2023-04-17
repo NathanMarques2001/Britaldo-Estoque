@@ -1,27 +1,33 @@
-import './style.css'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+
+import { DarkButton } from '../../components/button/dark-button'
 import ImgLogin from '../../assets/rafiki.svg'
 import ImgLogo from '../../assets/logo-preta.svg'
-import { signIn } from '../../services/signIn'
-import { useState } from 'react'
+
 import { validateEmail, validatePassword } from '../../utils/regex'
+import { auth } from '../../services/firebaseFunctions'
+import './style.css'
 
 export function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   function handleSubmit(event) {
     event.preventDefault()
-    
+
     if (validateEmail(email) && validatePassword(password)) {
-      signIn(email, password)
-    } else if (!validateEmail(email)) {
-      console.log(
-        'email invalido! Favor inserir um e-mail válido. Ex: email@email.com',
-      )
-    } else if (!validatePassword(password)) {
-      console.log(
-        'senha invalida! Favor inserir uma senha com no minimo 6 digitos!',
-      )
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user
+          navigate('/home')
+        })
+        .catch((error) => {
+          const errorCode = error.code
+          const errorMessage = error.message
+        })
     } else {
       console.log('email e senha inválidos!')
     }
@@ -56,7 +62,7 @@ export function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button id="botao-login">Login</button>
+          <DarkButton text="Entrar" idName="button-login" />
         </form>
       </div>
       <img src={ImgLogin} id="ImgLogin" />

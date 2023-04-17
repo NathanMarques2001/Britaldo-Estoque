@@ -1,0 +1,14 @@
+#light-button {
+  background-color: var(--button);
+  padding: 1%;
+  border: 2px solid var(--margin);
+  border-radius: 12px;
+  color: var(--lightgray);
+  width: 50%;
+  margin: 3% 0 1% 0;
+}
+
+#light-button:hover {
+  cursor: pointer;
+  background-color: var(--margin);
+}

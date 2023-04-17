@@ -1,5 +1,12 @@
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+} from 'firebase/auth'
 import { app } from './firebaseConfig.js'
+
+export const auth = getAuth(app);
 
 function createUser(email, password) {
   const auth = getAuth(app)
@@ -10,4 +17,13 @@ function createUser(email, password) {
         console.error('Usuario ja cadastrado!')
       }
     })
+}
+
+export function isLogged() {
+  const auth = getAuth(app)
+  onAuthStateChanged(auth, function (user) {
+    if (user) {
+      console.log('esta logado')
+    }
+  })
 }

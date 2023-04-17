@@ -1,0 +1,13 @@
+#dark-button {
+  background-color: var(--button);
+  padding: 5%;
+  border: 2px solid var(--background);
+  border-radius: 12px;
+  color: var(--lightgray);
+  margin: 4% 0 0 0;
+}
+
+#dark-button:hover {
+  cursor: pointer;
+  background-color: var(--background);
+}
