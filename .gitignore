@@ -37,4 +37,4 @@ public/
 *.zip
 *.tar.gz
 *.env
-firebaseConfig.js
+src/services/firebaseConfig.js
