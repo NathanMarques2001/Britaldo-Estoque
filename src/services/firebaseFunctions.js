@@ -2,7 +2,6 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
-  sendPasswordResetEmail,
 } from 'firebase/auth'
 import { app } from './firebaseConfig.js'
 
