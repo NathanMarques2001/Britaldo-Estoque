@@ -1,5 +1,5 @@
 /* Estilo do botão */
-button {
+#abrir-modal {
   background-color: #0077cc;
   color: white;
   border: none;
@@ -9,46 +9,46 @@ button {
   cursor: pointer;
 }
 
-/* Estilo do modal */
-[data-radix-dialog-content] {
-  border: 1px solid #ccc;
-  padding: 1rem;
-  background-color: #fff;
-  border-radius: 0.25rem;
-  width: 400px;
-  max-width: 100%;
+#container-modalUser {
+  width: 40%;
+  background-color: var(--lightgray);
+  border: 2px solid var(--margin);
+  border-radius: 12px;
 }
 
-[data-radix-dialog-content] form {
+#container-titlo-modalUser {
+  width: 100%;
+  text-align: center;
+}
+
+#modalUser-titulo {
+  padding: 5%;
+}
+
+#modalUser-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
 }
 
-[data-radix-dialog-content] label {
-  font-size: 1rem;
-  font-weight: bold;
+.label-input-modalUser {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5%;
 }
 
-[data-radix-dialog-content] input,
-[data-radix-dialog-content] textarea {
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+.input-ModalUser {
+  padding: 3%;
+  border: 1px solid var(--margin);
+  border-radius: 8px;
 }
 
-[data-radix-dialog-content] textarea {
-  resize: vertical;
-  min-height: 100px;
+#modalUser-permissoes {
+  padding: 1.5%;
+  border-radius: 0;
 }
 
-[data-radix-dialog-content] button[type="submit"] {
-  background-color: #0077cc;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  cursor: pointer;
+div form div label {
+  padding: 1%;
 }
