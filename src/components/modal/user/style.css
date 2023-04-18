@@ -1,7 +1,20 @@
-#background-modalUser{
+#background-modalUser {
   width: 100vw;
   height: 100vh;
-  background-color: var(--margin);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  background-color: var(--bg-absolut);
+}
+
+#container-icone-modalUser {
+  width: 100%;
+  text-align: end;
+  padding: 5%;
+}
+
+#icone-modalUser:hover {
+  cursor: pointer;
 }
 
 #container-modalUser {
@@ -15,10 +28,6 @@
 #container-titlo-modalUser {
   width: 100%;
   text-align: center;
-}
-
-#modalUser-titulo {
-  padding: 5%;
 }
 
 #modalUser-form {
