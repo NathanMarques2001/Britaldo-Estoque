@@ -9,12 +9,21 @@ import './style.css'
 
 export function Users() {
   const [open, setOpen] = useState(false)
+
+  function handleButtonClick() {
+    setOpen(true);
+  }
+
+  function handleCloseModal() {
+    setOpen(false);
+  }
+
   return (
     <>
       <Navbar />
-      {open ? <AddUserModal /> : <></>}
+      {open ? <AddUserModal open={open} onClose={handleCloseModal} /> : <></>}
       <div id="users-container">
-        <LightButton text="Adicionar usuário" func={setOpen} />
+        <LightButton text="Adicionar usuário" func={handleButtonClick} />
         <Table
           titulo2="Email ou Usuário"
           titulo3="Observações"
