@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { DarkButton } from '../../components/button/dark-button'
 import ImgLogin from '../../assets/rafiki.svg'
 import ImgLogo from '../../assets/logo-preta.svg'
+import { Loading } from '../../components/loading'
 
 import { validateEmail, validatePassword } from '../../utils/regex'
 import { auth } from '../../services/firebaseFunctions'
@@ -13,9 +14,12 @@ import './style.css'
 export function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
   function handleSubmit(event) {
+    setLoading(true)
+
     event.preventDefault()
 
     if (validateEmail(email) && validatePassword(password)) {
@@ -27,14 +31,16 @@ export function Login() {
         .catch((error) => {
           const errorCode = error.code
           const errorMessage = error.message
+          setLoading(false)
         })
     } else {
-      console.log('email e senha inválidos!')
+      setLoading(false)
     }
   }
 
   return (
     <div id="body-login">
+      {loading ? <Loading /> : <></>}
       <div id="container-login">
         <img src={ImgLogo} id="ImgLogo" />
         <form onSubmit={handleSubmit} id="form-login">

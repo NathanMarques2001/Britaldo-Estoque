@@ -1,8 +1,8 @@
 import './style.css'
 
-export function LightButton({ text }) {
+export function LightButton({ text, func }) {
   return (
-    <button id="light-button">
+    <button id="light-button" onClick={func}>
       <h2>{text}</h2>
     </button>
   )

@@ -1,12 +1,7 @@
-/* Estilo do botão */
-#abrir-modal {
-  background-color: #0077cc;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  cursor: pointer;
+#background-modalUser{
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--margin);
 }
 
 #container-modalUser {
@@ -14,6 +9,7 @@
   background-color: var(--lightgray);
   border: 2px solid var(--margin);
   border-radius: 12px;
+  position: absolute;
 }
 
 #container-titlo-modalUser {

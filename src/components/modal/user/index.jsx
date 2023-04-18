@@ -4,7 +4,7 @@ import './style.css'
 import { DarkButton } from '../../button/dark-button'
 
 export function AddUserModal() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
@@ -38,13 +38,9 @@ export function AddUserModal() {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <button id="abrir-modal" onClick={() => setOpen(true)}>
-          Abrir Modal
-        </button>
-      </DialogTrigger>
+    <Dialog open={open}>
       <DialogContent>
+      <div id='background-modalUser'>
         <div id="container-modalUser">
           <div id="container-titlo-modalUser">
             <h3 id="modalUser-titulo">Insira os dados do usuário</h3>
@@ -117,7 +113,8 @@ export function AddUserModal() {
             <DarkButton text="Salvar" />
           </form>
         </div>
+        </div>
       </DialogContent>
-    </Dialog>
+    </Dialog> 
   )
 }
