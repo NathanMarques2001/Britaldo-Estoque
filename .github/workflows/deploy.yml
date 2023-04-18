@@ -31,3 +31,5 @@ jobs:
 
     env:
       GOOGLE_APPLICATION_CREDENTIALS: "britaldo-estoque"
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
