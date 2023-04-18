@@ -62,6 +62,7 @@ export function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <p>funciona!</p>
           <DarkButton text="Entrar" idName="button-login" />
         </form>
       </div>
