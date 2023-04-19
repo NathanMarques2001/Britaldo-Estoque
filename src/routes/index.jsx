@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import { Home } from '../pages/home'
 import { Login } from '../pages/login'
-import { Users } from '../pages/users'
-import { RecoverPassword } from '../pages/recover-password'
+import { Usuarios } from '../pages/usuarios'
+import { RecuperarSenha } from '../pages/recuperar-senha'
 
 export function AppRoutes() {
   return (
@@ -11,8 +11,8 @@ export function AppRoutes() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/recover" element={<RecoverPassword />} />
+          <Route path="/usuarios" element={<Usuarios />} />
+          <Route path="/recuperar-senha" element={<RecuperarSenha />} />
         </Routes>
       </Router>
   )

@@ -1,7 +1,8 @@
-import { Table } from '../../components/table'
+//componentes
+import { Tabela } from '../../components/tabela'
 import { Navbar } from '../../components/navbar'
-import { LightButton } from '../../components/button/light-button'
-
+import { BotaoClaro } from '../../components/button/botao-claro'
+//funções,variaveis e estilos
 import './style.css'
 
 export function Home() {
@@ -9,14 +10,14 @@ export function Home() {
     <>
       <Navbar />
       <div id="container-home">
-        <LightButton text="Adicionar produto" />
+        <BotaoClaro texto="Adicionar produto" />
         <input
           type="search"
           name="nome-produto"
           id="busca-nome-produto"
           placeholder="Insira o nome do produto"
         />
-        <Table
+        <Tabela
           titulo2="Quantidade"
           titulo3="Observações"
           quantidadeBotoes={3}

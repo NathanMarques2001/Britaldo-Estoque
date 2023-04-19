@@ -1,36 +1,47 @@
+//bibliotecas
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { sendPasswordResetEmail } from 'firebase/auth'
-
+//componentes
 import imgForgotPassword from '../../assets/Forgot-password.svg'
-
+import { Loading } from '../../components/loading'
+//funções,variaveis e estilos
 import './style.css'
-import { validateEmail } from '../../utils/regex'
-import { auth } from '../../services/firebaseFunctions'
+import { validaEmail } from '../../utils/regex'
+import { auth } from '../../services/firebaseConfig.js'
 
-export function RecoverPassword() {
-  const navigate = useNavigate()
+export function RecuperarSenha() {
   const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
+  //Função que envia o formulário
   function handleSubmit(event) {
     event.preventDefault()
 
-    if (validateEmail(email)) {
+    if (validaEmail(email)) {
+      setLoading(true)
       sendPasswordResetEmail(auth, email)
         .then((response) => {
           console.log('Email enviado com sucesso')
           setEmail('')
+          setLoading(false)
         })
         .catch((error) => {
           if (error.code == 'auth/user-not-found') {
             console.error('Usuário não encontrado')
+            setLoading(false)
           }
         })
+    }
+    if (email == '') {
+      setLoading(false)
     }
   }
 
   return (
     <div id="recoverPassword-container">
+      {loading ? <Loading /> : <></>}
       <img
         src={imgForgotPassword}
         alt="Imagem esqueci a senha"

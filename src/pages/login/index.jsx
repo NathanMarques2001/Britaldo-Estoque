@@ -1,25 +1,31 @@
+//bibliotecas
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-
-import { DarkButton } from '../../components/button/dark-button'
+//componentes
+import { BotaoEscuro } from '../../components/button/botao-escuro'
 import ImgLogin from '../../assets/rafiki.svg'
 import ImgLogo from '../../assets/logo-preta.svg'
-
-import { validateEmail, validatePassword } from '../../utils/regex'
-import { auth } from '../../services/firebaseFunctions'
+import { Loading } from '../../components/loading'
+//funções,variaveis e estilos
+import { validaEmail, validaSenha } from '../../utils/regex'
+import { auth } from '../../services/firebaseConfig.js'
 import './style.css'
 
 export function Login() {
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [senha, setSenha] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
-  function handleSubmit(event) {
+  //Função que envia o formulário
+  function enviaFormulario(event) {
+    setLoading(true)
+
     event.preventDefault()
 
-    if (validateEmail(email) && validatePassword(password)) {
-      signInWithEmailAndPassword(auth, email, password)
+    if (validaEmail(email) && validaSenha(senha)) {
+      signInWithEmailAndPassword(auth, email, senha)
         .then((userCredential) => {
           const user = userCredential.user
           navigate('/home')
@@ -27,17 +33,19 @@ export function Login() {
         .catch((error) => {
           const errorCode = error.code
           const errorMessage = error.message
+          setLoading(false)
         })
     } else {
-      console.log('email e senha inválidos!')
+      setLoading(false)
     }
   }
 
   return (
     <div id="body-login">
+      {loading ? <Loading /> : <></>}
       <div id="container-login">
         <img src={ImgLogo} id="ImgLogo" />
-        <form onSubmit={handleSubmit} id="form-login">
+        <form onSubmit={enviaFormulario} id="form-login">
           <label htmlFor="login" className="label-login" id="label-user">
             Login
           </label>
@@ -59,11 +67,10 @@ export function Login() {
             placeholder="Insira sua senha"
             className="input-login"
             id="input-senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
           />
-          <p>funciona!</p>
-          <DarkButton text="Entrar" idName="button-login" />
+          <BotaoEscuro texto="Entrar" idName="button-login" />
         </form>
       </div>
       <img src={ImgLogin} id="ImgLogin" />

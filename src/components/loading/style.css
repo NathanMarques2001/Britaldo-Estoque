@@ -6,8 +6,9 @@
   display: inline-block;
   position: relative;
 }
+
 #loader::after {
-  content: '';  
+  content: '';
   left: 50%;
   top: -47px;
   transform: translate(-50%, 0);
@@ -17,8 +18,9 @@
   box-sizing: border-box;
   animation: bump 0.4s ease-in-out infinite alternate;
 }
+
 #loader::before {
-  content: '';  
+  content: '';
   left: 50%;
   bottom: 15px;
   transform: translate(-50%, 0);
@@ -34,26 +36,28 @@
   0% {
     transform: translate(-50%, 5px);
   }
+
   100% {
     transform: translate(-50%, -5px);
   }
 }
-    
 
-.loading-image{
+
+.loading-image {
   position: absolute;
 }
 
-#cloud{
+#cloud {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   width: 100vw;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  background-color: var(--bg-absolut);
 }
 
-#cloud-image{
+#cloud-image {
   width: 22.5%;
 }
