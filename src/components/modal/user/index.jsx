@@ -1,6 +1,6 @@
 //bibliotecas
 import { Dialog, DialogContent } from '@radix-ui/react-dialog'
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 import { RxCross1 } from 'react-icons/rx'
 import { useState } from 'react'
@@ -33,12 +33,15 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
     createUserWithEmailAndPassword(auth, email, senha)
       .then((response) => {
         const uid = response.user.uid
-        setDoc(doc(db, 'users', uid), {
-          nome,
-          email,
-          permissao,
-          cargo,
-        })
+        sendEmailVerification(response.user).then(data => {
+          setDoc(doc(db, 'users', uid), {
+            nome,
+            email,
+            permissao,
+            cargo,
+          })
+        }).catch(err => console.error(err))
+      
         setNome('')
         setEmail('')
         setSenha('')
