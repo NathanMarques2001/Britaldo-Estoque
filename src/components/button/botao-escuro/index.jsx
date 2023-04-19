@@ -1,9 +1,9 @@
 import './style.css'
 
-export function DarkButton({ text }) {
+export function BotaoEscuro({ texto }) {
   return (
     <button id="dark-button">
-      <h2>{text}</h2>
+      <h2>{texto}</h2>
     </button>
   )
 }

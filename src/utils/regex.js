@@ -1,4 +1,4 @@
-export function validateEmail(email) {
+export function validaEmail(email) {
   const regex = /^([a-zA-Z0-9._%+-]{3,}@[a-zA-Z0-9.-]{3,}\.[a-zA-Z]{2,})$/
 
   if (regex.test(email)) {
@@ -7,10 +7,10 @@ export function validateEmail(email) {
   return false
 }
 
-export function validatePassword(password) {
+export function validaSenha(senha) {
   const regex = /^[a-zA-Z0-9._%+-=?*&@!]{6,}$/
 
-  if (regex.test(password)) {
+  if (regex.test(senha)) {
     return true
   }
   return false

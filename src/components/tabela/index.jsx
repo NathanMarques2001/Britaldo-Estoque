@@ -3,7 +3,7 @@ import Baixa from '../../assets/baixa.svg'
 import Editar from '../../assets/editar.svg'
 import Excluir from '../../assets/excluir.svg'
 
-export function Table({ titulo2, titulo3, quantidadeBotoes }) {
+export function Tabela({ titulo2, titulo3, quantidadeBotoes }) {
   return (
     <table id="tabela-produtos">
       <tr>
