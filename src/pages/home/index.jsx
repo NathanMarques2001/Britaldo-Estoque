@@ -4,8 +4,18 @@ import { Navbar } from '../../components/navbar'
 import { BotaoClaro } from '../../components/button/botao-claro'
 //funções,variaveis e estilos
 import './style.css'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { auth } from '../../services/firebaseConfig'
+import { useNavigate } from 'react-router-dom'
 
 export function Home() {
+  const navigate = useNavigate()
+  onAuthStateChanged(auth, function (user) {
+    if (!user) {
+      navigate('/')
+    }
+  })
+
   return (
     <>
       <Navbar />

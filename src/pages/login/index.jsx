@@ -1,7 +1,7 @@
 //bibliotecas
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
 //componentes
 import { BotaoEscuro } from '../../components/button/botao-escuro'
 import ImgLogin from '../../assets/rafiki.svg'
@@ -39,6 +39,12 @@ export function Login() {
       setLoading(false)
     }
   }
+
+  onAuthStateChanged(auth, function (user) {
+    if (user) {
+      navigate('/home')
+    }
+  })
 
   return (
     <div id="body-login">
