@@ -1,16 +1,21 @@
 //bibliotecas
 import { Dialog, DialogContent } from '@radix-ui/react-dialog'
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendEmailVerification,
+} from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 import { RxCross1 } from 'react-icons/rx'
 import { useState } from 'react'
 //componentes
 import { Loading } from '../../loading'
 import { BotaoEscuro } from '../../button/botao-escuro'
+import { MensagemErro } from '../../mensagem-erro'
 //funções,variaveis e estilos
 import './style.css'
 import { app, db } from '../../../services/firebaseConfig.js'
-
+import { validaEmail, validaSenha } from '../../../utils/regex.js'
 
 export function ModalAdicionaUsuario({ abrir, fechar }) {
   const [nome, setNome] = useState('')
@@ -24,39 +29,55 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
     { value: 'User', label: 'Usuário' },
   ])
   const [loading, setLoading] = useState(false)
+  const [borderStyle, setBorderStyle] = useState('')
+  const [erroEmail, setErroEmail] = useState(false)
+  const [erroSenha, setErroSenha] = useState(false)
+  const [cadastrado, setCadastrado] = useState(false)
 
   const enviaFormulario = (event) => {
     event.preventDefault()
-    // Implemente aqui a lógica para enviar as informações do modal
-    setLoading(true)
-    const auth = getAuth(app)
-    createUserWithEmailAndPassword(auth, email, senha)
-      .then((response) => {
-        const uid = response.user.uid
-        sendEmailVerification(response.user).then(data => {
-          setDoc(doc(db, 'users', uid), {
-            nome,
-            email,
-            permissao,
-            cargo,
-          })
-        }).catch(err => console.error(err))
-      
-        setNome('')
-        setEmail('')
-        setSenha('')
-        setCargo('')
-        setPermissao('')
-        // Fecha o modal
-        fechar()
-        setLoading(false)
-      })
-      .catch((error) => {
-        if (error.code == 'auth/email-already-in-use') {
-          console.error('Usuario ja cadastrado!')
-        }
-        setLoading(false)
-      })
+
+    if (validaEmail(email) && validaSenha(senha)) {
+      setLoading(true)
+      const auth = getAuth(app)
+      createUserWithEmailAndPassword(auth, email, senha)
+        .then((response) => {
+          const uid = response.user.uid
+          sendEmailVerification(response.user)
+            .then((data) => {
+              setDoc(doc(db, 'users', uid), {
+                nome,
+                email,
+                permissao,
+                cargo,
+              })
+            })
+            .catch((err) => console.error(err))
+
+          setNome('')
+          setEmail('')
+          setSenha('')
+          setCargo('')
+          setPermissao('')
+          // Fecha o modal
+          fechar()
+          setLoading(false)
+        })
+        .catch((error) => {
+          if (error.code == 'auth/email-already-in-use') {
+            setCadastrado(true)
+          }
+          setLoading(false)
+        })
+    } else {
+      setBorderStyle('1px solid red')
+      if (!validaEmail(email)) {
+        setErroEmail(true)
+      }
+      if (!validaSenha(senha)) {
+        setErroSenha(true)
+      }
+    }
   }
 
   return (
@@ -96,7 +117,18 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
                     placeholder="Ex: email@email.com"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
+                    style={{ border: `${borderStyle}` }}
                   />
+                  {erroEmail ? (
+                    <MensagemErro texto="Verificar e-mail inserido" />
+                  ) : (
+                    <></>
+                  )}
+                  {cadastrado ? (
+                    <MensagemErro texto="Usuário já cadastrado!" />
+                  ) : (
+                    <></>
+                  )}
                 </div>
 
                 <div className="label-input-modalUser">
@@ -105,10 +137,16 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
                     type="password"
                     id="modalUser-senha"
                     className="input-ModalUser"
-                    placeholder="Insira a senha"
+                    placeholder="Insira uma senha com no mínimo 6 dígitos"
                     value={senha}
                     onChange={(event) => setSenha(event.target.value)}
+                    style={{ border: `${borderStyle}` }}
                   />
+                  {erroSenha ? (
+                    <MensagemErro texto="Inserir uma senha com pelo menos 6 dígitos" />
+                  ) : (
+                    <></>
+                  )}
                 </div>
 
                 <div className="label-input-modalUser">
