@@ -1,14 +1,13 @@
 //bibliotecas
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { sendPasswordResetEmail } from 'firebase/auth'
 //componentes
 import imgForgotPassword from '../../assets/Forgot-password.svg'
 import { Loading } from '../../components/loading'
 //funções,variaveis e estilos
 import './style.css'
 import { validaEmail } from '../../utils/regex'
-import { auth } from '../../services/firebaseConfig.js'
+import AuthService from '../../services/AuthService'
 
 export function RecuperarSenha() {
   const [email, setEmail] = useState('')
@@ -17,11 +16,12 @@ export function RecuperarSenha() {
 
   //Função que envia o formulário
   function handleSubmit(event) {
+    setLoading(true)
     event.preventDefault()
 
     if (validaEmail(email)) {
-      setLoading(true)
-      sendPasswordResetEmail(auth, email)
+      new AuthService()
+        .recuperarSenha(email)
         .then((response) => {
           console.log('Email enviado com sucesso')
           setEmail('')
