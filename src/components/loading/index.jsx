@@ -1,11 +1,10 @@
 import './style.css'
-import cloud from '../../assets/cloud.svg'
+import ReactLoading from 'react-loading'
 
 export function Loading() {
   return (
-    <div id='cloud'>
-      <img src={cloud} alt="" id='cloud-image' className="loading-image" />
-      <span id="loader" className="loading-image"></span>
+    <div id='container-loading'>
+      <ReactLoading type={'spokes'} color={'#FFF'} height={'15%'} width={'15%'}/>
     </div>
   )
 }

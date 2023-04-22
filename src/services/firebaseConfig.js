@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth';
+import { browserLocalPersistence, initializeAuth } from 'firebase/auth';
 import { getFirestore } from "firebase/firestore";
 
 //Configurações basicas da aplicação
@@ -16,6 +16,8 @@ const firebaseConfig = {
 //Inicializa o firebase
 export const app = initializeApp(firebaseConfig)
 //Cria a autenticação do admin da aplicação
-export const auth = getAuth(app)
+export const auth = initializeAuth(app, {
+  persistence: browserLocalPersistence
+})
 //Inicializa o firestore
 export const db = getFirestore(app);

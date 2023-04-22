@@ -1,7 +1,6 @@
 //bibliotecas
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 //componentes
 import { BotaoEscuro } from '../../components/button/botao-escuro'
 import ImgLogin from '../../assets/rafiki.svg'
@@ -9,34 +8,47 @@ import ImgLogo from '../../assets/logo-preta.svg'
 import { Loading } from '../../components/loading'
 //funções,variaveis e estilos
 import { validaEmail, validaSenha } from '../../utils/regex'
-import { auth } from '../../services/firebaseConfig.js'
 import './style.css'
+import AuthService from '../../services/AuthService'
 
 export function Login() {
-  const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const [form, setForm] = useState({
+    email: '',
+    senha: '',
+  })
 
-  //Função que envia o formulário
+  const atualizaEmail = (event) => {
+    setForm({
+      ...form,
+      email: event.target.value,
+    })
+  }
+
+  const atualizaSenha = (event) => {
+    setForm({
+      ...form,
+      senha: event.target.value,
+    })
+  }
+
   function enviaFormulario(event) {
-    setLoading(true)
-
     event.preventDefault()
 
-    if (validaEmail(email) && validaSenha(senha)) {
-      signInWithEmailAndPassword(auth, email, senha)
-        .then((userCredential) => {
-          const user = userCredential.user
+    if (validaEmail(form.email) && validaSenha(form.senha)) {
+      setLoading(true)
+
+      new AuthService()
+        .logar(form.email, form.senha)
+        .then(() => {
+          loading(false)
           navigate('/home')
         })
         .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-          setLoading(false)
+          loading(false)
+          setError(error)
         })
-    } else {
-      setLoading(false)
     }
   }
 
@@ -55,8 +67,8 @@ export function Login() {
             placeholder="Nome de usuário ou e-mail"
             className="input-login"
             id="input-user"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={form.email}
+            onChange={atualizaEmail}
           />
           <label htmlFor="senha" className="label-login" id="label-senha">
             Senha
@@ -67,8 +79,8 @@ export function Login() {
             placeholder="Insira sua senha"
             className="input-login"
             id="input-senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
+            value={form.senha}
+            onChange={atualizaSenha}
           />
           <BotaoEscuro texto="Entrar" idName="button-login" />
         </form>

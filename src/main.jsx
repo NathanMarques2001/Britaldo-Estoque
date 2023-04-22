@@ -4,9 +4,12 @@ import ReactDOM from 'react-dom/client'
 import { AppRoutes } from './routes'
 
 import './style/global.css'
+import AuthProvider from './contexts/auth/authProvider'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AppRoutes />
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   </React.StrictMode>,
 )

@@ -19,3 +19,11 @@
 .link-nav {
   color: var(--lightgray);
 }
+
+.a-nav{
+  text-decoration: underline;
+}
+
+.a-nav:hover{
+  cursor: pointer;
+}

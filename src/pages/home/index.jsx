@@ -6,6 +6,7 @@ import { BotaoClaro } from '../../components/button/botao-claro'
 import './style.css'
 
 export function Home() {
+
   return (
     <>
       <Navbar />
