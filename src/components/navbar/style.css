@@ -20,10 +20,10 @@
   color: var(--lightgray);
 }
 
-.a-nav{
+.a-nav {
   text-decoration: underline;
 }
 
-.a-nav:hover{
+.a-nav:hover {
   cursor: pointer;
 }

@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3.5%;
+  gap: 5%;
   height: 100vh;
 }
 
@@ -13,34 +13,34 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 35%;
-  height: 80%;
-  border-radius: 20px;
+  width: 30%;
+  padding: 4%;
+  border-radius: 16px;
 }
 
 #ImgLogo {
-  width: 55%;
-  padding: 0 0 10% 0;
+  width: 70%;
+  padding: 0 0 17.5% 0;
 }
 
 #form-login {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
 }
 
 .label-login {
-  margin: 0 0 3% 0;
+  margin: 0 0 1.5% 0;
 }
 
 .input-login {
-  padding: 8.5%;
+  padding: 7%;
   background-color: var(--lightgray);
   border: 1px solid var(--margin);
-  border-radius: 12px;
-  margin: 0 0 5% 0;
+  border-radius: 8px;
+  margin: 0 0 7% 0;
 }
 
 #ImgLogin {
-  width: 45%;
+  width: 40%;
 }

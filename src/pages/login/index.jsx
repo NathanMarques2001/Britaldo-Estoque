@@ -53,39 +53,41 @@ export function Login() {
   }
 
   return (
-    <div id="body-login">
+    <>
       {loading ? <Loading /> : <></>}
-      <div id="container-login">
-        <img src={ImgLogo} id="ImgLogo" />
-        <form onSubmit={enviaFormulario} id="form-login">
-          <label htmlFor="login" className="label-login" id="label-user">
-            Login
-          </label>
-          <input
-            type="email"
-            name="login"
-            placeholder="Nome de usuário ou e-mail"
-            className="input-login"
-            id="input-user"
-            value={form.email}
-            onChange={atualizaEmail}
-          />
-          <label htmlFor="senha" className="label-login" id="label-senha">
-            Senha
-          </label>
-          <input
-            type="password"
-            name="senha"
-            placeholder="Insira sua senha"
-            className="input-login"
-            id="input-senha"
-            value={form.senha}
-            onChange={atualizaSenha}
-          />
-          <BotaoEscuro texto="Entrar" idName="button-login" />
-        </form>
+      <div id="body-login">
+        <div id="container-login">
+          <img src={ImgLogo} id="ImgLogo" />
+          <form onSubmit={enviaFormulario} id="form-login">
+            <label htmlFor="login" className="label-login" id="label-user">
+              Login
+            </label>
+            <input
+              type="email"
+              name="login"
+              placeholder="Insira seu e-mail"
+              className="input-login"
+              id="input-user"
+              value={form.email}
+              onChange={atualizaEmail}
+            />
+            <label htmlFor="senha" className="label-login" id="label-senha">
+              Senha
+            </label>
+            <input
+              type="password"
+              name="senha"
+              placeholder="Insira sua senha"
+              className="input-login"
+              id="input-senha"
+              value={form.senha}
+              onChange={atualizaSenha}
+            />
+            <BotaoEscuro texto="Entrar" idName="button-login" />
+          </form>
+        </div>
+        <img src={ImgLogin} id="ImgLogin" />
       </div>
-      <img src={ImgLogin} id="ImgLogin" />
-    </div>
+    </>
   )
 }
