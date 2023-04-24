@@ -1,12 +1,11 @@
 #tabela-produtos {
   width: 90%;
   background-color: var(--lightgray);
-  border-radius: 12px;
+  border-radius: 8px;
   max-height: 80vh;
 }
 
 table tr th {
-  font-size: max(8px, min(2.5vw, 20px));
   padding: 1%;
 }
 
@@ -16,6 +15,9 @@ table tr td {
   border-bottom: 1px solid;
 }
 
-table tr td button {
-  padding: 0 3%;
+table tr td:nth-child(even){background-color: #f2f2f2;}
+
+#container-botao-tabela button:nth-child(1),
+#container-botao-tabela button:nth-child(2) {
+  margin: 0 3% 0 0;
 }

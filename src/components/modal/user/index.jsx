@@ -10,7 +10,7 @@ import { BotaoEscuro } from '../../button/botao-escuro'
 import { MensagemErro } from '../../mensagem-erro'
 //funções,variaveis e estilos
 import './style.css'
-import { app, db } from '../../../services/firebaseConfig.js'
+import { db } from '../../../services/firebaseConfig.js'
 import { validaEmail, validaSenha } from '../../../utils/regex.js'
 import AuthService from '../../../services/AuthService'
 
@@ -158,7 +158,7 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
                   <RxCross1 />
                 </span>
               </div>
-              <div id="container-titlo-modalUser">
+              <div id="container-titulo-modalUser">
                 <h3 id="modalUser-titulo">Insira os dados do usuário</h3>
               </div>
               <form onSubmit={enviaFormulario} id="modalUser-form">
@@ -248,7 +248,9 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
                     onChange={atualizaCargo}
                   />
                 </div>
-                <BotaoEscuro texto="Salvar" />
+                <div className="label-input-modalUser" id='container-botao-modalUser'>
+                  <BotaoEscuro texto="Salvar" />
+                </div>
               </form>
             </div>
           </div>

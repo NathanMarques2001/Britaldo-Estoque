@@ -21,7 +21,7 @@ export function Home() {
         <Tabela
           titulo2="Quantidade"
           titulo3="Observações"
-          quantidadeBotoes={3}
+          tabela="produtos"
         />
       </div>
     </>

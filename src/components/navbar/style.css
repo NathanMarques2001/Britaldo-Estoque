@@ -10,6 +10,12 @@
   width: 15%;
 }
 
+#container-links-navbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 #links-navbar {
   display: flex;
   width: 30%;
@@ -20,10 +26,10 @@
   color: var(--lightgray);
 }
 
-.a-nav{
+.a-nav {
   text-decoration: underline;
 }
 
-.a-nav:hover{
+.a-nav:hover {
   cursor: pointer;
 }

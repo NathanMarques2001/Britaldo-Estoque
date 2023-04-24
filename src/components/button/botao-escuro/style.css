@@ -2,12 +2,18 @@
   background-color: var(--button);
   padding: 5%;
   border: 2px solid var(--background);
-  border-radius: 12px;
+  border-radius: 8px;
   color: var(--lightgray);
   margin: 4% 0 0 0;
+  width: 100%;
 }
 
 #dark-button:hover {
   cursor: pointer;
   background-color: var(--background);
+}
+
+#dark-button-texto{
+  font-weight: bold;
+  font-size: 24px;
 }
