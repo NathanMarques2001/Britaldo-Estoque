@@ -26,9 +26,9 @@ export function Usuarios() {
       <div id="users-container">
         <BotaoClaro texto="Adicionar usuário" abreModal={abreModal} />
         <Tabela
-          titulo2="Email ou Usuário"
-          titulo3="Observações"
-          quantidadeBotoes={2}
+          titulo2="Email"
+          titulo3="Permissões"
+          tabela="usuarios"
         />
       </div>
     </>

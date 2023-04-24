@@ -10,6 +10,12 @@
   width: 15%;
 }
 
+#container-links-navbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 #links-navbar {
   display: flex;
   width: 30%;

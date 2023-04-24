@@ -29,16 +29,18 @@ export function Navbar() {
       {loading ? <Loading /> : <></>}
       <nav id="container-navbar">
         <img src={Logo} alt="logo-nav" id="logo-nav" />
-        <div id="links-navbar">
-          <Link to="/home" className="link-nav">
-            Estoque
-          </Link>
-          <Link to="/usuarios" className="link-nav">
-            Usuários
-          </Link>
-          <p className="link-nav a-nav" onClick={logout}>
-            Sair
-          </p>
+        <div id='container-links-navbar'>
+          <div id="links-navbar">
+            <Link to="/home" className="link-nav">
+              Estoque
+            </Link>
+            <Link to="/usuarios" className="link-nav">
+              Usuários
+            </Link>
+            <p className="link-nav a-nav" onClick={logout}>
+              Sair
+            </p>
+          </div>
         </div>
       </nav>
     </>

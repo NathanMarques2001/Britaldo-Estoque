@@ -14,7 +14,6 @@
 #container-icone-modalUser {
   width: 100%;
   text-align: end;
-  padding: 5%;
 }
 
 #icone-modalUser:hover {
@@ -27,9 +26,10 @@
   border: 2px solid var(--margin);
   border-radius: 12px;
   position: absolute;
+  padding: 3%;
 }
 
-#container-titlo-modalUser {
+#container-titulo-modalUser {
   width: 100%;
   text-align: center;
 }
@@ -38,10 +38,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .label-input-modalUser {
-  width: 85%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 1.5%;
@@ -50,7 +51,7 @@
 .input-ModalUser {
   padding: 3%;
   border: 1px solid var(--margin);
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 #modalUser-permissoes {

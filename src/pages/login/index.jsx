@@ -42,11 +42,11 @@ export function Login() {
       new AuthService()
         .logar(form.email, form.senha)
         .then(() => {
-          loading(false)
+          setLoading(false)
           navigate('/home')
         })
         .catch((error) => {
-          loading(false)
+          setLoading(false)
           setError(error)
         })
     }
@@ -83,7 +83,7 @@ export function Login() {
               value={form.senha}
               onChange={atualizaSenha}
             />
-            <BotaoEscuro texto="Entrar" idName="button-login" />
+            <BotaoEscuro texto="Entrar" />
           </form>
         </div>
         <img src={ImgLogin} id="ImgLogin" />
