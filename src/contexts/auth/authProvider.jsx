@@ -11,6 +11,7 @@ export default function AuthProvider(props) {
     firebaseAuth.onAuthStateChanged(auth, (user) => {
       setCarregandoUsuarioLogado(false)
       setUser(user)
+      //Fazer a query e passar estado aqui
     })
   }, [])
 
