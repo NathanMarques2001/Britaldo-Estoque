@@ -1,6 +1,5 @@
 //bibliotecas
 import { Dialog, DialogContent } from '@radix-ui/react-dialog'
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 import { RxCross1 } from 'react-icons/rx'
 import { useState } from 'react'
@@ -123,7 +122,7 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
           //destructuring
           const { senha, opcoes, ...dados } = form
           setDoc(doc(db, 'users', uid), dados)
-
+  
           reiniciaFormulario
           // Fecha o modal
           fechar()

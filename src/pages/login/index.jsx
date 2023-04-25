@@ -41,9 +41,20 @@ export function Login() {
 
       new AuthService()
         .logar(form.email, form.senha)
-        .then(() => {
+        .then((response) => {
           setLoading(false)
-          navigate('/home')
+
+          const uid = response.user.uid;
+          const docRef = doc(db, "users", uid);
+          const docSnap = async () => await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+          } else {
+           // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+
         })
         .catch((error) => {
           setLoading(false)
