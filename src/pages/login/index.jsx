@@ -9,7 +9,7 @@ import { Loading } from '../../components/loading'
 //funções,variaveis e estilos
 import { validaEmail, validaSenha } from '../../utils/regex'
 import './style.css'
-import AuthService from '../../services/AuthService'
+import AuthService from '../../services/auth/AuthService'
 
 export function Login() {
   const [loading, setLoading] = useState(false)

@@ -1,7 +1,5 @@
 //bibliotecas
 import { Dialog, DialogContent } from '@radix-ui/react-dialog'
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
-import { doc, setDoc } from 'firebase/firestore'
 import { RxCross1 } from 'react-icons/rx'
 import { useState } from 'react'
 //componentes
@@ -10,9 +8,9 @@ import { BotaoEscuro } from '../../button/botao-escuro'
 import { MensagemErro } from '../../mensagem-erro'
 //funções,variaveis e estilos
 import './style.css'
-import { db } from '../../../services/firebaseConfig.js'
 import { validaEmail, validaSenha } from '../../../utils/regex.js'
-import AuthService from '../../../services/AuthService'
+import AuthService from '../../../services/auth/AuthService'
+import { post } from '../../../services/firestore/user'
 
 export function ModalAdicionaUsuario({ abrir, fechar }) {
   const [form, setForm] = useState({
@@ -122,8 +120,9 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
           const uid = response.user.uid
           //destructuring
           const { senha, opcoes, ...dados } = form
-          setDoc(doc(db, 'users', uid), dados)
-
+          //Envia dados para o banco
+          post(dados, uid)
+          console.log(response.user)
           reiniciaFormulario
           // Fecha o modal
           fechar()

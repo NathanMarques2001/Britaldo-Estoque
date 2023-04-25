@@ -1,5 +1,5 @@
 import * as firebaseAuth from 'firebase/auth'
-import { auth } from './firebaseConfig'
+import { auth } from '../firebaseConfig'
 
 export default class AuthService {
   logar(email, senha) {

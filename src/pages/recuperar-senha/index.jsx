@@ -7,7 +7,7 @@ import { Loading } from '../../components/loading'
 //funções,variaveis e estilos
 import './style.css'
 import { validaEmail } from '../../utils/regex'
-import AuthService from '../../services/AuthService'
+import AuthService from '../../services/auth/AuthService'
 
 export function RecuperarSenha() {
   const [email, setEmail] = useState('')
