@@ -10,7 +10,6 @@ import { Loading } from '../../components/loading'
 import { validaEmail, validaSenha } from '../../utils/regex'
 import './style.css'
 import AuthService from '../../services/auth/AuthService'
-import UsersCollection from '../../services/firestore/UsersCollection'
 
 export function Login() {
   const [loading, setLoading] = useState(false)
@@ -38,29 +37,12 @@ export function Login() {
     event.preventDefault()
 
     if (validaEmail(form.email) && validaSenha(form.senha)) {
-      //setLoading(true)
+      setLoading(true)
 
       new AuthService()
         .logar(form.email, form.senha)
         .then((response) => {
-          const uid = response.user.uid;
-
-          new UsersCollection()
-            .validaPermissao(uid)
-            .then((usuarioValido) => {
-              if (usuarioValido) {
-                console.log("deu")
-                //setLoading(false)
-               // navigate("/home")
-              } else {
-                setLoading(false)
-                console.log("nao deu")
-              }
-            })
-            .catch((error) => {
-              //setLoading(false)
-              console.error(error);
-            })
+          setLoading(false);
         })
         .catch((error) => {
           setLoading(false)
@@ -102,6 +84,7 @@ export function Login() {
             />
             <BotaoEscuro texto="Entrar" />
           </form>
+          <button id='botao-criar-conta'>Criar conta</button>
         </div>
         <img src={ImgLogin} id="ImgLogin" />
       </div>

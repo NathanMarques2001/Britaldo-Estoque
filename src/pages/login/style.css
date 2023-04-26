@@ -14,7 +14,7 @@
   justify-content: center;
   align-items: center;
   width: 30%;
-  padding: 4%;
+  padding: 4% 4% 2% 4%;
   border-radius: 16px;
 }
 
@@ -38,9 +38,23 @@
   background-color: var(--lightgray);
   border: 1px solid var(--margin);
   border-radius: 8px;
-  margin: 0 0 7% 0;
+  margin: 0 0 5% 0;
 }
 
 #ImgLogin {
   width: 40%;
+}
+
+#botao-criar-conta{
+  background-color: var(--margin);
+  padding: 3%;
+  border: 1px solid var(--background);
+  border-radius: 8px;
+  margin: 4% 0 0 0;
+  width: 100%;
+}
+
+#botao-criar-conta:hover{
+  background-color: var(--button);
+  cursor: pointer;
 }
