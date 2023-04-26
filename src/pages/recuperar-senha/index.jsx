@@ -61,6 +61,7 @@ export function RecuperarSenha() {
           <input
             type="email"
             name="recover-email"
+            required
             id="recoverPassword-input"
             placeholder="Ex: Email@email.com"
             value={email}
