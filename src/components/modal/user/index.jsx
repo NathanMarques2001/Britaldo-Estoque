@@ -11,7 +11,7 @@ import { MensagemErro } from '../../mensagem-erro'
 import './style.css'
 import { db } from '../../../services/firebaseConfig.js'
 import { validaEmail, validaSenha } from '../../../utils/regex.js'
-import AuthService from '../../../services/AuthService'
+import AuthService from '../../../services/auth/AuthService'
 
 export function ModalAdicionaUsuario({ abrir, fechar }) {
   const [form, setForm] = useState({

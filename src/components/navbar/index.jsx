@@ -1,7 +1,7 @@
 import './style.css'
 import Logo from '../../assets/logo-branca.svg'
 import { Link } from 'react-router-dom'
-import AuthService from '../../services/AuthService'
+import AuthService from '../../services/auth/AuthService'
 import { Loading } from '../loading'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -20,7 +20,6 @@ export function Navbar() {
       })
       .catch((error) => {
         setLoading(false)
-
       })
   }
 

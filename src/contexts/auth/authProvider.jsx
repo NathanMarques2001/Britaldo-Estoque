@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AuthContext } from './authContext'
 import * as firebaseAuth from 'firebase/auth'
 import { auth } from '../../services/firebaseConfig'
+import UsersCollection from '../../services/firestore/UsersCollection'
 
 export default function AuthProvider(props) {
   const [carregandoUsuarioLogado, setCarregandoUsuarioLogado] = useState(true)
@@ -12,7 +13,6 @@ export default function AuthProvider(props) {
     firebaseAuth.onAuthStateChanged(auth, (user) => {
       setCarregandoUsuarioLogado(false)
       setUser(user)
-      //Fazer a query e setar estado
     })
   }, [])
 
@@ -20,7 +20,7 @@ export default function AuthProvider(props) {
     <AuthContext.Provider
       value={{
         carregandoUsuarioLogado,
-        user,
+        user
         //passar estado aqui tambem
       }}
     >

@@ -9,7 +9,8 @@ import { Loading } from '../../components/loading'
 //funções,variaveis e estilos
 import { validaEmail, validaSenha } from '../../utils/regex'
 import './style.css'
-import AuthService from '../../services/AuthService'
+import AuthService from '../../services/auth/AuthService'
+import UsersCollection from '../../services/firestore/UsersCollection'
 
 export function Login() {
   const [loading, setLoading] = useState(false)
@@ -37,24 +38,29 @@ export function Login() {
     event.preventDefault()
 
     if (validaEmail(form.email) && validaSenha(form.senha)) {
-      setLoading(true)
+      //setLoading(true)
 
       new AuthService()
         .logar(form.email, form.senha)
         .then((response) => {
-          setLoading(false)
-
           const uid = response.user.uid;
-          const docRef = doc(db, "users", uid);
-          const docSnap = async () => await getDoc(docRef);
 
-          if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-          } else {
-           // doc.data() will be undefined in this case
-            console.log("No such document!");
-          }
-
+          new UsersCollection()
+            .validaPermissao(uid)
+            .then((usuarioValido) => {
+              if (usuarioValido) {
+                console.log("deu")
+                //setLoading(false)
+               // navigate("/home")
+              } else {
+                setLoading(false)
+                console.log("nao deu")
+              }
+            })
+            .catch((error) => {
+              //setLoading(false)
+              console.error(error);
+            })
         })
         .catch((error) => {
           setLoading(false)
