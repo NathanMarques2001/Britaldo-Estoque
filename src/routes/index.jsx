@@ -10,10 +10,10 @@ import { Login } from '../pages/login'
 import { Usuarios } from '../pages/usuarios'
 import { RecuperarSenha } from '../pages/recuperar-senha'
 import { Cadastro } from '../pages/cadastro'
-import { NovoUsuario } from '../pages/novo-usuario'
 //
 import { Loading } from '../components/loading'
 import { useAuthContext } from '../contexts/auth/authContext'
+import { NovoUsuario } from '../pages/novo-usuario'
 
 export function AppRoutes() {
   const { carregandoUsuarioLogado, user } = useAuthContext()
@@ -40,6 +40,7 @@ export function AppRoutes() {
               element={user ? <Usuarios /> : <Navigate to={'/'} />}
             />
             <Route path="/recuperar-senha" element={<RecuperarSenha />} />
+            <Route path="/novo-usuario" element={<NovoUsuario />} />
           </Routes>
         </Router>
       )}

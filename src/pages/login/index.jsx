@@ -46,7 +46,6 @@ export function Login() {
         })
         .catch((error) => {
           setLoading(false)
-          setError(error)
         })
     }
   }
