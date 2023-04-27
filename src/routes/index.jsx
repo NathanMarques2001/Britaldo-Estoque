@@ -10,6 +10,7 @@ import { Login } from '../pages/login'
 import { Usuarios } from '../pages/usuarios'
 import { RecuperarSenha } from '../pages/recuperar-senha'
 import { Cadastro } from '../pages/cadastro'
+import { NovoUsuario } from '../pages/novo-usuario'
 //
 import { Loading } from '../components/loading'
 import { useAuthContext } from '../contexts/auth/authContext'

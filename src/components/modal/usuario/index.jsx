@@ -122,7 +122,7 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
           //destructuring
           const { senha, opcoes, ...dados } = form
           setDoc(doc(db, 'users', uid), dados)
-  
+
           reiniciaFormulario
           // Fecha o modal
           fechar()
