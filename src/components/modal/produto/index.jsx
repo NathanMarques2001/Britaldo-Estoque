@@ -1,5 +1,9 @@
 //bibliotecas
 import { Dialog, DialogContent } from '@radix-ui/react-dialog'
+<<<<<<< HEAD:src/components/modal/user/index.jsx
+=======
+import { doc, setDoc } from 'firebase/firestore'
+>>>>>>> Nathan:src/components/modal/produto/index.jsx
 import { RxCross1 } from 'react-icons/rx'
 import { useState } from 'react'
 //componentes
@@ -10,7 +14,10 @@ import { MensagemErro } from '../../mensagem-erro'
 import './style.css'
 import { validaEmail, validaSenha } from '../../../utils/regex.js'
 import AuthService from '../../../services/auth/AuthService'
+<<<<<<< HEAD:src/components/modal/user/index.jsx
 import { post } from '../../../services/firestore/user'
+=======
+>>>>>>> Nathan:src/components/modal/produto/index.jsx
 
 export function ModalAdicionaUsuario({ abrir, fechar }) {
   const [form, setForm] = useState({

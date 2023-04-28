@@ -41,13 +41,11 @@ export function Login() {
 
       new AuthService()
         .logar(form.email, form.senha)
-        .then(() => {
-          setLoading(false)
-          navigate('/home')
+        .then((response) => {
+          setLoading(false);
         })
         .catch((error) => {
           setLoading(false)
-          setError(error)
         })
     }
   }
@@ -85,6 +83,7 @@ export function Login() {
             />
             <BotaoEscuro texto="Entrar" />
           </form>
+          <button id='botao-criar-conta' onClick={e => navigate("/cadastro")}>Criar conta</button>
         </div>
         <img src={ImgLogin} id="ImgLogin" />
       </div>

@@ -1,30 +1,23 @@
-//bibliotecas
-import { useState } from 'react'
 //componetes
 import { Tabela } from '../../components/tabela'
 import { Navbar } from '../../components/navbar'
-import { BotaoClaro } from '../../components/button/botao-claro'
-import { ModalAdicionaUsuario } from '../../components/modal/user'
 //funções,variaveis e estilos
 import './style.css'
+import { useState } from 'react'
+import { useAuthContext } from '../../contexts/auth/authContext'
+import UsersCollection from '../../services/firestore/UsersCollection'
+import { NovoUsuario } from '../novo-usuario'
 
 export function Usuarios() {
-  const [abrir, setAbrir] = useState(false)
-
-  function abreModal() {
-    setAbrir(true);
-  }
-
-  function fechaModal() {
-    setAbrir(false);
-  }
-
+  const [validaNovo, setValidaNovo] = useState(false)
+  const { user } = useAuthContext()
+  const usersCollection = new UsersCollection()
+  usersCollection.validaPermissao(user.uid).then((response) => response ? setValidaNovo(false) : setValidaNovo(true)).catch((error) => error)
   return (
     <>
+      {validaNovo ? <NovoUsuario /> : <></>}
       <Navbar />
-      {abrir ? <ModalAdicionaUsuario abrir={abrir} fechar={fechaModal} /> : <></>}
       <div id="users-container">
-        <BotaoClaro texto="Adicionar usuário" abreModal={abreModal} />
         <Tabela
           titulo2="Email"
           titulo3="Permissões"

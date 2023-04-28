@@ -14,8 +14,9 @@
   justify-content: center;
   align-items: center;
   width: 30%;
-  padding: 4%;
+  padding: 4% 4% 2% 4%;
   border-radius: 16px;
+  animation: elementoEsquerda 2s;
 }
 
 #ImgLogo {
@@ -38,9 +39,51 @@
   background-color: var(--lightgray);
   border: 1px solid var(--margin);
   border-radius: 8px;
-  margin: 0 0 7% 0;
+  margin: 0 0 5% 0;
 }
 
 #ImgLogin {
   width: 40%;
+  animation: elementoDireita 2s;
+}
+
+#botao-criar-conta{
+  background-color: var(--margin);
+  padding: 4%;
+  border: 2px solid var(--background);
+  border-radius: 8px;
+  margin: 4% 0 1% 0;
+  width: 100%;
+  font-weight: bold;
+}
+
+#botao-criar-conta:hover{
+  background-color: var(--button);
+  cursor: pointer;
+}
+
+@keyframes elementoEsquerda {
+
+  from {
+      opacity: 0;
+      transform: translateX(-12%)
+  }
+
+  to {
+      opacity: 1;
+      transform: translateX(0)
+  }
+}
+
+@keyframes elementoDireita {
+
+  from {
+      opacity: 0;
+      transform: translateX(12%)
+  }
+
+  to {
+      opacity: 1;
+      transform: translateX(0)
+  }
 }

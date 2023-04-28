@@ -4,11 +4,21 @@ import { Navbar } from '../../components/navbar'
 import { BotaoClaro } from '../../components/button/botao-claro'
 //funções,variaveis e estilos
 import './style.css'
+import UsersCollection from '../../services/firestore/UsersCollection'
+import { useAuthContext } from '../../contexts/auth/authContext'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { NovoUsuario } from '../novo-usuario'
 
 export function Home() {
+  const navigate = useNavigate()
+  const [validaNovo, setValidaNovo] = useState(false)
+  const { user } = useAuthContext()
+  new UsersCollection().validaPermissao(user.uid).then((response) => response ? setValidaNovo(false) : setValidaNovo(true)).catch((error) => error)
 
   return (
     <>
+      {validaNovo ? <NovoUsuario /> : <></>}
       <Navbar />
       <div id="container-home">
         <BotaoClaro texto="Adicionar produto" />

@@ -20,7 +20,6 @@ export function Navbar() {
       })
       .catch((error) => {
         setLoading(false)
-
       })
   }
 
