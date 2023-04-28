@@ -10,6 +10,7 @@
 
 #recoverPassword-img {
   width: 45%;
+  animation: elementoEsquerda 2s;
 }
 
 #recoverPassword-form {
@@ -18,6 +19,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 8px;
+  animation: apareceForm 4s;
 }
 
 #recoverPassword-label {
@@ -77,4 +79,28 @@
 #button-cancel:hover {
   background-color: var(--cancelHover);
   cursor: pointer;
+}
+
+@keyframes elementoEsquerda {
+
+  from {
+      opacity: 0;
+      transform: translateX(-5%)
+  }
+
+  to {
+      opacity: 1;
+      transform: translateX(0)
+  }
+}
+
+@keyframes apareceForm {
+
+  from {
+      opacity: 0;
+  }
+
+  to {
+      opacity: 1;
+  }
 }

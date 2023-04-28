@@ -13,15 +13,14 @@ export function RecuperarSenha() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-
+  const authService = new AuthService()
   //Função que envia o formulário
   function handleSubmit(event) {
     setLoading(true)
     event.preventDefault()
 
     if (validaEmail(email)) {
-      new AuthService()
-        .recuperarSenha(email)
+      authService.recuperarSenha(email)
         .then((response) => {
           console.log('Email enviado com sucesso')
           setEmail('')
