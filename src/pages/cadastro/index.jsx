@@ -18,7 +18,7 @@ export function Cadastro() {
     email: '',
     senha: '',
     cargo: '',
-    permissao: 'Novo usuário',
+    permissao: 'New User',
   })
   const [erro, setErro] = useState({
     email: false,
