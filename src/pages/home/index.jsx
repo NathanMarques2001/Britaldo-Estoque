@@ -14,7 +14,7 @@ export function Home() {
   const navigate = useNavigate()
   const [validaNovo, setValidaNovo] = useState(false)
   const { user } = useAuthContext()
-  new UsersCollection().validaPermissao(user.uid).then(() => setValidaNovo(true)).catch((error) => error)
+  new UsersCollection().validaPermissao(user.uid).then((response) => response ? setValidaNovo(false) : setValidaNovo(true)).catch((error) => error)
 
   return (
     <>

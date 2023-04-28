@@ -15,9 +15,21 @@ table tr td {
   border-bottom: 1px solid;
 }
 
-table tr td:nth-child(even){background-color: #f2f2f2;}
+table tr td:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
 #container-botao-tabela button:nth-child(1),
 #container-botao-tabela button:nth-child(2) {
   margin: 0 3% 0 0;
+}
+
+.botao-tabela {
+  scale: 0.9;
+  transition: 0.3s;
+}
+
+.botao-tabela:hover {
+  scale: 1;
+  cursor: pointer;
 }

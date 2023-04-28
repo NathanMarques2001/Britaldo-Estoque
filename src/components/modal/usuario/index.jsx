@@ -9,9 +9,9 @@ import { BotaoEscuro } from '../../button/botao-escuro'
 import { MensagemErro } from '../../mensagem-erro'
 //funções,variaveis e estilos
 import './style.css'
-import { db } from '../../../services/firebaseConfig.js'
 import { validaEmail, validaSenha } from '../../../utils/regex.js'
 import AuthService from '../../../services/auth/AuthService'
+import UsersCollection from '../../../services/firestore/UsersCollection'
 
 export function ModalAdicionaUsuario({ abrir, fechar }) {
   const [form, setForm] = useState({
@@ -109,19 +109,21 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
     })
   }
 
+  const authService = new AuthService()
+  const usersCollection = new UsersCollection()
+
   const enviaFormulario = (event) => {
     event.preventDefault()
 
     if (validaEmail(form.email) && validaSenha(form.senha)) {
       setLoading(true)
 
-      new AuthService()
-        .cadastrarNovoUsuario(form.email, form.senha)
+      authService.cadastrarNovoUsuario(form.email, form.senha)
         .then((response) => {
           const uid = response.user.uid
           //destructuring
           const { senha, opcoes, ...dados } = form
-          setDoc(doc(db, 'users', uid), dados)
+          usersCollection.post(uid, dados)
 
           reiniciaFormulario
           // Fecha o modal

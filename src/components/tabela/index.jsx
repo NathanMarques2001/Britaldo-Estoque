@@ -3,25 +3,22 @@ import Baixa from '../../assets/baixa.svg'
 import Editar from '../../assets/editar.svg'
 import Excluir from '../../assets/excluir.svg'
 import { useEffect, useState } from 'react'
+import UsersCollection from '../../services/firestore/UsersCollection'
+import ProdutosCollection from '../../services/firestore/ProdutosCollection'
 
 export function Tabela({ titulo2, titulo3, tabela }) {
-  const [produtos, setProdutos] = useState([
-    { nome: 'Produto 1', quantidade: 5, observacoes: 'Observacao 1' },
-    { nome: 'Produto 2', quantidade: 10, observacoes: 'Observacao 2' },
-    { nome: 'Produto 3', quantidade: 15, observacoes: 'Observacao 3' },
-  ])
-
-  const [usuarios, setUsuario] = useState([
-    { nome: 'Usuário 1', email: 'email1@email.com', permissao: 'Permissao 1' },
-    { nome: 'Usuário 2', email: 'email2@email.com', permissao: 'Permissao 2' },
-    { nome: 'Usuário 3', email: 'email3@email.com', permissao: 'Permissao 3' },
-  ])
+  const [produtos, setProdutos] = useState([])
+  const [usuarios, setUsuario] = useState([])
 
   const data = tabela === 'produtos' ? produtos : usuarios;
 
+  const usersCollection = new UsersCollection();
+  const produtosCollection = new ProdutosCollection();
+
   useEffect(() => {
-    //Código que busca dados no banco
-  }, [produtos, usuarios])
+    usersCollection.get(setUsuario);
+    produtosCollection.get(setProdutos);
+  }, [])
 
   return (
     <table id="tabela-produtos">

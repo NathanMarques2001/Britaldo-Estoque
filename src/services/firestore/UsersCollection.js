@@ -1,12 +1,14 @@
 import { db } from "../firebaseConfig.js";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 
 export default class UsersCollection {
 
-  get() {
-    let arr = []
-    const querySnapshot = getDocs(collection(db, "users")).then((response) => arr.push(response)).catch((error) => console.error(error))
-    arr.forEach((doc) => console.log(doc.data()))
+  get(setEstado) {
+    onSnapshot(collection(db, "users"), (snapshot) => setEstado(snapshot.docs.map((documento) => documento.data())))
+  }
+
+  post(uid, dados) {
+    setDoc(doc(db, 'users', uid), dados)
   }
 
   validaPermissao(uid) {
@@ -28,5 +30,3 @@ export default class UsersCollection {
       });
   }
 }
-
-new UsersCollection().get();
