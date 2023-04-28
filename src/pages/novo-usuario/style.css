@@ -3,14 +3,16 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--bg-absolut);
   z-index: 999;
-  position: absolute;
+  position: fixed;
+  animation: apareceTela 1s;
 }
 
 #img-novo-usuario {
   width: 50%;
+  animation: apareceTela 1.5s;
 }
 
 #texto-novo-usuario {
@@ -42,4 +44,15 @@
 #botao-novo-usuario:hover {
   background-color: var(--margin);
   cursor: pointer;
+}
+
+@keyframes apareceTela {
+
+  from {
+      opacity: 0;
+  }
+
+  to {
+      opacity: 1;
+  }
 }

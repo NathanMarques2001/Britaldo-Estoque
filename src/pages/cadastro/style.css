@@ -9,6 +9,7 @@
 
 #img-cadastro {
   width: 40%;
+  animation: elementoEsquerda 2s;
 }
 
 #cadastro-form {
@@ -19,6 +20,7 @@
   flex-direction: column;
   align-items: center;
   padding: 2% 0 1% 0;
+  animation: elementoDireita 2s;
 }
 
 .label-input-cadastro {
@@ -57,4 +59,30 @@
 #botao-cancelar-cadastro:hover {
   background-color: var(--cancelHover);
   cursor: pointer;
+}
+
+@keyframes elementoEsquerda {
+
+  from {
+      opacity: 0;
+      transform: translateX(-12%)
+  }
+
+  to {
+      opacity: 1;
+      transform: translateX(0)
+  }
+}
+
+@keyframes elementoDireita {
+
+  from {
+      opacity: 0;
+      transform: translateX(12%)
+  }
+
+  to {
+      opacity: 1;
+      transform: translateX(0)
+  }
 }

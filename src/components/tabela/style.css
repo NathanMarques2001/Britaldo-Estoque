@@ -3,6 +3,7 @@
   background-color: var(--lightgray);
   border-radius: 8px;
   max-height: 80vh;
+  margin-top: 3%;
 }
 
 table tr th {

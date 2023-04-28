@@ -1,151 +1,45 @@
 //bibliotecas
 import { Dialog, DialogContent } from '@radix-ui/react-dialog'
-import { doc, setDoc } from 'firebase/firestore'
 import { RxCross1 } from 'react-icons/rx'
 import { useState } from 'react'
 //componentes
 import { Loading } from '../../loading'
 import { BotaoEscuro } from '../../button/botao-escuro'
-import { MensagemErro } from '../../mensagem-erro'
 //funções,variaveis e estilos
 import './style.css'
-import { validaEmail, validaSenha } from '../../../utils/regex.js'
-import AuthService from '../../../services/auth/AuthService'
-import UsersCollection from '../../../services/firestore/UsersCollection'
 
-export function ModalAdicionaUsuario({ abrir, fechar }) {
+export function ModalAdicionaUsuario({ abrir, fechar, nome, setNome, email, cargo, setCargo, permissao, setPermissao }) {
   const [form, setForm] = useState({
-    nome: '',
-    email: '',
-    senha: '',
-    cargo: '',
-    permissao: '',
+    nome: nome,
+    email: email,
+    cargo: cargo,
+    permissao: permissao,
     opcoes: [
       { value: '', label: '' },
       { value: 'Admin', label: 'Administrador' },
       { value: 'User', label: 'Usuário' },
+      { value: 'New User', label: 'Novo Usuário' },
     ],
   })
-  const [erro, setErro] = useState({
-    email: false,
-    senha: false,
-    cadastrado: false,
-  })
+
   const [loading, setLoading] = useState(false)
-  const borda = '1px solid red'
-
-  const atualizaNome = (event) => {
-    setForm({
-      ...form,
-      nome: event.target.value,
-    })
-  }
-
-  const atualizaEmail = (event) => {
-    setForm({
-      ...form,
-      email: event.target.value,
-    })
-  }
-
-  const atualizaSenha = (event) => {
-    setForm({
-      ...form,
-      senha: event.target.value,
-    })
-  }
-
-  const atualizaCargo = (event) => {
-    setForm({
-      ...form,
-      cargo: event.target.value,
-    })
-  }
-
-  const atualizaPermsissao = (event) => {
-    setForm({
-      ...form,
-      permissao: event.target.value,
-    })
-  }
 
   const reiniciaFormulario = () => {
     setForm({
       nome: '',
-      email: '',
-      senha: '',
       cargo: '',
       permissao: '',
       opcao: '',
     })
   }
 
-  const atualizaErroEmail = (novoValor) => {
-    setErro({
-      ...erro,
-      email: novoValor,
-    })
-  }
-
-  const atualizaErroSenha = (novoValor) => {
-    setErro({
-      ...erro,
-      senha: novoValor,
-    })
-  }
-
-  const atualizaErroCadastrado = (novoValor) => {
-    setErro({
-      ...erro,
-      cadastrado: novoValor,
-    })
-  }
-
-  const reiniciaErros = () => {
-    setErro({
-      email: false,
-      senha: false,
-      cadastrado: false,
-    })
-  }
-
-  const authService = new AuthService()
-  const usersCollection = new UsersCollection()
-
   const enviaFormulario = (event) => {
     event.preventDefault()
 
-    if (validaEmail(form.email) && validaSenha(form.senha)) {
-      setLoading(true)
-
-      authService.cadastrarNovoUsuario(form.email, form.senha)
-        .then((response) => {
-          const uid = response.user.uid
-          //destructuring
-          const { senha, opcoes, ...dados } = form
-          usersCollection.post(uid, dados)
-
-          reiniciaFormulario
-          // Fecha o modal
-          fechar()
-          setLoading(false)
-        })
-        .catch((error) => {
-          if (error.code == 'auth/email-already-in-use') {
-            atualizaErroCadastrado(true)
-          }
-          setLoading(false)
-        })
-    } else {
-      if (!validaEmail(form.email)) {
-        atualizaErroEmail(true)
-      }
-      if (!validaSenha(form.senha)) {
-        atualizaErroSenha(true)
-      }
-    }
-    reiniciaErros
   }
+
+  const [desabilita, setDesabilita] = useState(false)
+  permissao === "Superadmin" ? setDesabilita(true) : setDesabilita(false)
 
   return (
     <>
@@ -172,7 +66,7 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
                     placeholder="Insira o nome do usuário"
                     required
                     value={form.nome}
-                    onChange={atualizaNome}
+                    onChange={setNome}
                   />
                 </div>
 
@@ -183,40 +77,9 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
                     id="modalUser-email"
                     className="input-ModalUser"
                     placeholder="Ex: email@email.com"
-                    required
+                    disabled
                     value={form.email}
-                    onChange={atualizaEmail}
-                    style={{ border: erro.email ? borda : '' }}
                   />
-                  {erro.email ? (
-                    <MensagemErro texto="Verificar e-mail inserido" />
-                  ) : (
-                    <></>
-                  )}
-                  {erro.cadastrado ? (
-                    <MensagemErro texto="Usuário já cadastrado!" />
-                  ) : (
-                    <></>
-                  )}
-                </div>
-
-                <div className="label-input-modalUser">
-                  <label htmlFor="modalUser-senha">Senha</label>
-                  <input
-                    type="password"
-                    id="modalUser-senha"
-                    className="input-ModalUser"
-                    placeholder="Insira uma senha com no mínimo 6 dígitos"
-                    required
-                    value={form.senha}
-                    onChange={atualizaSenha}
-                    style={{ border: erro.senha ? borda : '' }}
-                  />
-                  {erro.senha ? (
-                    <MensagemErro texto="Inserir uma senha com pelo menos 6 dígitos" />
-                  ) : (
-                    <></>
-                  )}
                 </div>
 
                 <div className="label-input-modalUser">
@@ -225,9 +88,10 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
                     name="permissoes"
                     id="modalUser-permissoes"
                     className="input-ModalUser"
+                    disabled={desabilita}
                     required
                     value={form.permissao}
-                    onChange={atualizaPermsissao}
+                    onChange={setPermissao}
                   >
                     {form.opcoes.map((itens) => (
                       <option key={itens.value} value={itens.value}>
@@ -246,7 +110,7 @@ export function ModalAdicionaUsuario({ abrir, fechar }) {
                     placeholder="Insira o cargo"
                     required
                     value={form.cargo}
-                    onChange={atualizaCargo}
+                    onChange={setCargo}
                   />
                 </div>
                 <div className="label-input-modalUser" id='container-botao-modalUser'>

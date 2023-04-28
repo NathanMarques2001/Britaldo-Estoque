@@ -8,6 +8,8 @@ import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../../services/firebaseConfig'
 import { Loading } from '../../components/loading'
 import { BotaoEscuro } from '../../components/button/botao-escuro'
+import UsersCollection from '../../services/firestore/UsersCollection'
+import { MensagemErro } from '../../components/mensagem-erro'
 
 export function Cadastro() {
   const navigate = useNavigate()
@@ -92,19 +94,22 @@ export function Cadastro() {
     })
   }
 
+  const authService = new AuthService();
+  const usersCollection = new UsersCollection()
+
   const enviaFormulario = (event) => {
     event.preventDefault()
 
     if (validaEmail(form.email) && validaSenha(form.senha)) {
       setLoading(true)
 
-      new AuthService()
-        .cadastrarNovoUsuario(form.email, form.senha)
+      authService.cadastrarNovoUsuario(form.email, form.senha)
         .then((response) => {
           const uid = response.user.uid
           //destructuring
           const { senha, opcoes, ...dados } = form
-          setDoc(doc(db, 'users', uid), dados)
+
+          usersCollection.post(uid, dados)
 
           reiniciaFormulario
           setLoading(false)

@@ -16,6 +16,7 @@
   width: 30%;
   padding: 4% 4% 2% 4%;
   border-radius: 16px;
+  animation: elementoEsquerda 2s;
 }
 
 #ImgLogo {
@@ -43,6 +44,7 @@
 
 #ImgLogin {
   width: 40%;
+  animation: elementoDireita 2s;
 }
 
 #botao-criar-conta{
@@ -58,4 +60,30 @@
 #botao-criar-conta:hover{
   background-color: var(--button);
   cursor: pointer;
+}
+
+@keyframes elementoEsquerda {
+
+  from {
+      opacity: 0;
+      transform: translateX(-12%)
+  }
+
+  to {
+      opacity: 1;
+      transform: translateX(0)
+  }
+}
+
+@keyframes elementoDireita {
+
+  from {
+      opacity: 0;
+      transform: translateX(12%)
+  }
+
+  to {
+      opacity: 1;
+      transform: translateX(0)
+  }
 }
