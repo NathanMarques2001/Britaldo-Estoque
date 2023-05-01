@@ -33,11 +33,6 @@ export default class UsersCollection {
     await setDoc(doc(db, 'users', id), dados)
   }
 
-  //Função que atualiza apenas um dado
-  async put() {
-    //Lógica aqui
-  }
-
   //Função que deleta um documento
   async delete() {
     //Lógica aqui

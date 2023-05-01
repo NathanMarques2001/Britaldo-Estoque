@@ -1,20 +1,23 @@
 //bibliotecas
 import { Dialog, DialogContent } from '@radix-ui/react-dialog'
 import { RxCross1 } from 'react-icons/rx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 //componentes
 import { Loading } from '../../loading'
 import { BotaoEscuro } from '../../button/botao-escuro'
 //funções,variaveis e estilos
 import './style.css'
 import ProdutosCollection from '../../../services/firestore/ProdutosCollection'
+import { validaQuantidade } from '../../../utils/validaDados'
 
-export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes, id }) {
+export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes, id, modalBaixa }) {
   const [form, setForm] = useState({
     nome: nome,
     quantidade: quantidade,
     observacoes: observacoes,
   })
+
+  const [baixa, setBaixa] = useState(0)
 
   const produtosCollection = new ProdutosCollection()
   const [loading, setLoading] = useState(false)
@@ -40,18 +43,33 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
     })
   }
 
+  const atualizaBaixa = (event) => {
+    setBaixa(event.target.value)
+  }
+
   const enviaFormulario = async (event) => {
     event.preventDefault()
     try {
       setLoading(true);
-      await produtosCollection.patch(id, form);
+      if (validaQuantidade(form.quantidade)) {
+        await produtosCollection.patch(id, form);
+        fechar();
+      } else {
+        alert("Menor que 0")
+      }
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
-      fechar();
     }
   }
+
+  useEffect(() => {
+    setForm({
+      ...form,
+      quantidade: quantidade - baixa
+    })
+  }, [baixa])
 
   return (
     <>
@@ -77,22 +95,44 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
                     className="input-ModalProdutos"
                     placeholder="Insira o nome do produto"
                     required
+                    disabled={modalBaixa ? true : false}
                     value={form.nome}
                     onChange={atualizaNome}
                   />
                 </div>
 
-                <div className="label-input-modalProdutos">
-                  <label htmlFor="modalProdutos-quantidade">Quantidade</label>
-                  <input
-                    type="number"
-                    id="modalProdutos-quantidade"
-                    className="input-ModalProdutos"
-                    placeholder="1, 15, 100..."
-                    required
-                    value={form.quantidade}
-                    onChange={atualizaQuantidade}
-                  />
+                <div id='label-input-modalProdutos-quantidade' className="label-input-modalProdutos">
+                  <div className='div-label-input-modalProdutos-quantidade'>
+                    <label htmlFor="modalProdutos-quantidade">Quantidade</label>
+                    <input
+                      type="number"
+                      id="modalProdutos-quantidade-editar-baixa"
+                      className="input-ModalProdutos"
+                      placeholder="1, 15, 100..."
+                      required
+                      disabled={modalBaixa ? true : false}
+                      value={form.quantidade}
+                      onChange={atualizaQuantidade}
+                      style={{ padding: `${modalBaixa ? '5%' : '3%'}`, width: `${modalBaixa ? '35%' : '20%'}` }}
+                    />
+                  </div>
+
+                  {modalBaixa &&
+                    <div className='div-label-input-modalProdutos-quantidade'>
+                      <label htmlFor="modalProdutos-baixa">Baixar</label>
+                      <input
+                        type="number"
+                        id="modalProdutos-quantidade-editar-baixa"
+                        className="input-ModalProdutos"
+                        placeholder="1, 15, 100..."
+                        required
+                        value={baixa}
+                        onChange={atualizaBaixa}
+                        style={{ padding: `${modalBaixa ? '5%' : '3%'}`, width: `${modalBaixa ? '35%' : '20%'}` }}
+                      />
+                    </div>
+                  }
+
                 </div>
 
                 <div className="label-input-modalProdutos">
@@ -101,6 +141,7 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
                     id="modalProdutos-observacoes"
                     className="input-ModalProdutos"
                     placeholder="Insira as observações"
+                    disabled={modalBaixa ? true : false}
                     rows="5" cols="40"
                     value={form.observacoes}
                     onChange={atualizaObservacoes}

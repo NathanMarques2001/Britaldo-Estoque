@@ -33,11 +33,6 @@ export default class ProdutosCollection {
     await setDoc(doc(db, 'produtos', id), dados)
   }
 
-  //Função que atualiza apenas um dado
-  async put() {
-    //Lógica aqui
-  }
-
   //Função que deleta um documento
   async delete() {
     //Lógica aqui

@@ -59,6 +59,12 @@ div form div label {
   padding: 1%;
 }
 
-#modalProdutos-quantidade {
-  width: 20%;
+#label-input-modalProdutos-quantidade {
+  flex-direction: row;
+}
+
+.div-label-input-modalProdutos-quantidade {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }

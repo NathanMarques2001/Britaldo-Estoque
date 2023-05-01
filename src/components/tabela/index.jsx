@@ -27,6 +27,7 @@ export function Tabela({ titulo2, titulo3, tabela }) {
   const [produto, setProduto] = useState({})
   const [abrirUsuarios, setAbrirUsuarios] = useState(false)
   const [abrirProdutos, setAbrirProdutos] = useState(false)
+  const [abrirBaixa, setAbrirBaixa] = useState(false)
 
   const data = tabela === 'produtos' ? produtos : usuarios;
 
@@ -41,12 +42,20 @@ export function Tabela({ titulo2, titulo3, tabela }) {
     }
   }
 
+  function abreModalBaixa() {
+    setAbrirBaixa(true)
+  }
+
   function fechaModal() {
     if (tabela === 'produtos') {
       setAbrirProdutos(false)
     } else {
       setAbrirUsuarios(false)
     }
+  }
+
+  function fechaModalBaixa() {
+    setAbrirBaixa(false)
   }
 
   useEffect(() => {
@@ -76,10 +85,28 @@ export function Tabela({ titulo2, titulo3, tabela }) {
               <td>{item.observacoes || traduzPermissao(item.permissao)}</td>
               <td id="container-botao-tabela">
                 {
-                  tabela === 'produtos' ? <button id="btn-baixa" className="botao-tabela">
+                  tabela === 'produtos' ? <button onClick={async () => {
+                    try {
+                      const product = await produtosCollection.getProduto(item.id);
+                      setProduto(product);
+                      abreModalBaixa();
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }} id="btn-baixa" className="botao-tabela">
                     <img src={Baixa} alt="" className="img-botao" id="img-baixa" />
                   </button> : <></>
                 }
+                {abrirBaixa &&
+                  <ModalEditaProduto
+                    abrir={abrirBaixa}
+                    fechar={fechaModalBaixa}
+                    nome={produto.nome}
+                    quantidade={produto.quantidade}
+                    observacoes={produto.observacoes}
+                    id={produto.id}
+                    modalBaixa={true}
+                  />}
                 <button onClick={async () => {
                   try {
                     if (tabela === 'produtos') {
@@ -114,6 +141,7 @@ export function Tabela({ titulo2, titulo3, tabela }) {
                     quantidade={produto.quantidade}
                     observacoes={produto.observacoes}
                     id={produto.id}
+                    modalBaixa={false}
                   /> : <></>
                 }
                 {
