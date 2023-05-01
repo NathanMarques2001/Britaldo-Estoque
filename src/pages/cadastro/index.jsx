@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { validaEmail, validaSenha } from '../../utils/regex'
 import AuthService from '../../services/auth/AuthService'
-import { doc, setDoc } from 'firebase/firestore'
-import { db } from '../../services/firebaseConfig'
 import { Loading } from '../../components/loading'
 import { BotaoEscuro } from '../../components/button/botao-escuro'
 import UsersCollection from '../../services/firestore/UsersCollection'
@@ -18,7 +16,7 @@ export function Cadastro() {
     email: '',
     senha: '',
     cargo: '',
-    permissao: 'Novo usuário',
+    permissao: 'New User',
   })
   const [erro, setErro] = useState({
     email: false,

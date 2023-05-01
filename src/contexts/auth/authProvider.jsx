@@ -4,14 +4,13 @@ import * as firebaseAuth from 'firebase/auth'
 import { auth } from '../../services/firebaseConfig'
 
 export default function AuthProvider(props) {
-  const [carregandoUsuarioLogado, setCarregandoUsuarioLogado] = useState(true)
-  const [user, setUser] = useState(null)
-  //Criar estado aqui
+  const [carregandoUsuarioLogado, setCarregandoUsuarioLogado] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     firebaseAuth.onAuthStateChanged(auth, (user) => {
-      setCarregandoUsuarioLogado(false)
-      setUser(user)
+      setCarregandoUsuarioLogado(false);
+      setUser(user);
     })
   }, [])
 
@@ -20,7 +19,6 @@ export default function AuthProvider(props) {
       value={{
         carregandoUsuarioLogado,
         user
-        //passar estado aqui tambem
       }}
     >
       {props.children}
