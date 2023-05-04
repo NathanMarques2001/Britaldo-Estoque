@@ -85,7 +85,7 @@ export function Login() {
           </form>
           <button id='botao-criar-conta' onClick={e => navigate("/cadastro")}>Criar conta</button>
         </div>
-        <img src={ImgLogin} id="ImgLogin" />
+        <img src={ImgLogin} id="ImgLogin" alt='imagem-login'/>
       </div>
     </>
   )
