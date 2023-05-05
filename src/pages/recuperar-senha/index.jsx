@@ -69,7 +69,7 @@ export function RecuperarSenha() {
           />
         </div>
         <div id="recoverPassword-div-button">
-          <button onClick={(e) => navigate('/')} id="button-cancel">
+          <button onClick={(e) => navigate('/login')} id="button-cancel">
             Cancelar
           </button>
           <button id="button-send">Enviar</button>

@@ -142,7 +142,7 @@ export function Cadastro() {
               type="text"
               id="cadastro-nome"
               className="input-cadastro"
-              placeholder="Insira o nome do usuário"
+              placeholder="Insira seu nome"
               required
               value={form.nome}
               onChange={atualizaNome}
@@ -198,7 +198,7 @@ export function Cadastro() {
               type="text"
               id="cadastro-cargo"
               className="input-cadastro"
-              placeholder="Insira o cargo"
+              placeholder="Insira seu cargo"
               required
               value={form.cargo}
               onChange={atualizaCargo}
@@ -207,7 +207,7 @@ export function Cadastro() {
           <div className="label-input-cadastro" id='container-botao-cadastro'>
             <BotaoEscuro texto="Salvar" />
             <button onClick={e => { e.preventDefault()
-            navigate('/')}} id='botao-cancelar-cadastro'>Cancelar</button>
+            navigate('/login')}} id='botao-cancelar-cadastro'>Cancelar</button>
           </div>
         </form>
       </div>

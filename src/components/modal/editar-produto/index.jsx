@@ -93,7 +93,7 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
                     type="text"
                     id="modalProdutos-nome"
                     className="input-ModalProdutos"
-                    placeholder="Insira o nome do produto"
+                    placeholder="Nome do produto"
                     required
                     disabled={modalBaixa ? true : false}
                     value={form.nome}
@@ -108,7 +108,7 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
                       type="number"
                       id="modalProdutos-quantidade-editar-baixa"
                       className="input-ModalProdutos"
-                      placeholder="1, 15, 100..."
+                      placeholder="1, 15..."
                       required
                       disabled={modalBaixa ? true : false}
                       value={form.quantidade}
@@ -124,7 +124,7 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
                         type="number"
                         id="modalProdutos-quantidade-editar-baixa"
                         className="input-ModalProdutos"
-                        placeholder="1, 15, 100..."
+                        placeholder="1, 15..."
                         required
                         value={baixa}
                         onChange={atualizaBaixa}
@@ -140,7 +140,7 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
                   <textarea
                     id="modalProdutos-observacoes"
                     className="input-ModalProdutos"
-                    placeholder="Insira as observações"
+                    placeholder="Algo a mais que precisa ser detalhado"
                     disabled={modalBaixa ? true : false}
                     rows="5" cols="40"
                     value={form.observacoes}

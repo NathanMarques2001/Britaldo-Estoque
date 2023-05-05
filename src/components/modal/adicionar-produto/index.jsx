@@ -74,7 +74,7 @@ export function ModalAdicionarProduto({ abrir, fechar }) {
                     type="text"
                     id="modalProdutos-nome"
                     className="input-ModalProdutos"
-                    placeholder="Insira o nome do produto"
+                    placeholder="Nome do produto"
                     required
                     value={form.nome}
                     onChange={atualizaNome}
@@ -87,7 +87,7 @@ export function ModalAdicionarProduto({ abrir, fechar }) {
                     type="number"
                     id="modalProdutos-quantidade"
                     className="input-ModalProdutos"
-                    placeholder="1, 15, 100..."
+                    placeholder="1, 15..."
                     required
                     value={form.quantidade}
                     onChange={atualizaQuantidade}
@@ -99,7 +99,7 @@ export function ModalAdicionarProduto({ abrir, fechar }) {
                   <textarea
                     id="modalProdutos-observacoes"
                     className="input-ModalProdutos"
-                    placeholder="Insira as observações"
+                    placeholder="Algo a mais que precisa ser detalhado"
                     rows="5" cols="40"
                     value={form.observacoes}
                     onChange={atualizaObservacoes}
