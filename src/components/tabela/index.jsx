@@ -10,7 +10,7 @@ import { Loading } from '../loading'
 import { ModalEditaUsuario } from '../modal/editar-usuario'
 import { ModalEditaProduto } from '../modal/editar-produto'
 
-export function Tabela({ titulo2, titulo3, tabela }) {
+export function Tabela({ titulo2, titulo3, tabela, filtro }) {
   const [produtos, setProdutos] = useState([{
     nome: '',
     quantidade: 0,
@@ -29,6 +29,7 @@ export function Tabela({ titulo2, titulo3, tabela }) {
   const [abrirUsuarios, setAbrirUsuarios] = useState(false)
   const [abrirProdutos, setAbrirProdutos] = useState(false)
   const [abrirBaixa, setAbrirBaixa] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const data = tabela === 'produtos' ? produtos : usuarios;
 
@@ -37,9 +38,13 @@ export function Tabela({ titulo2, titulo3, tabela }) {
 
   function abreModal() {
     if (tabela === 'produtos') {
+      setLoading(true)
       setAbrirProdutos(true)
+      setLoading(false)
     } else {
+      setLoading(true)
       setAbrirUsuarios(true)
+      setLoading(false)
     }
   }
 
@@ -69,6 +74,7 @@ export function Tabela({ titulo2, titulo3, tabela }) {
 
   return (
     <>
+      {loading && <Loading />}
       <table id="tabela-produtos">
         <thead>
           <tr>
@@ -79,7 +85,7 @@ export function Tabela({ titulo2, titulo3, tabela }) {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
+          {data.filter(filtrado => filtrado.nome.toLowerCase().includes(filtro)).map((item) => (
             <tr key={item.id}>
               <td>{item.nome}</td>
               <td>{item.quantidade || item.email}</td>

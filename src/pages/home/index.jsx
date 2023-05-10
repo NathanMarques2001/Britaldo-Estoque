@@ -13,6 +13,7 @@ import { ModalAdicionarProduto } from '../../components/modal/adicionar-produto'
 export function Home() {
   const [abrir, setAbrir] = useState(false)
   const [validaNovo, setValidaNovo] = useState(false)
+  const [nomeFiltro, setFiltroNome] = useState("")
   const { user } = useAuthContext()
   const usersCollection = new UsersCollection()
 
@@ -28,6 +29,12 @@ export function Home() {
     setAbrir(false)
   }
 
+  function atualizaFiltro(event) {
+    setFiltroNome(event.target.value);
+  }
+
+  const lowerFiltro = nomeFiltro.toLowerCase();
+
   return (
     <>
       {validaNovo ? <NovoUsuario /> : <></>}
@@ -40,11 +47,15 @@ export function Home() {
           name="nome-produto"
           id="busca-nome-produto"
           placeholder="Insira o nome do produto"
+          value={nomeFiltro}
+          onChange={atualizaFiltro}
         />
+
         <Tabela
           titulo2="Quantidade"
           titulo3="Observações"
           tabela="produtos"
+          filtro={lowerFiltro}
         />
       </div>
     </>
