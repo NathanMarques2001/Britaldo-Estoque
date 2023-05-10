@@ -24,20 +24,20 @@ export function AppRoutes() {
         <Router>
           <Routes>
             <Route
-              path="/"
-              element={!user ? <Login /> : <Navigate to={'/home'} />}
+              path="/login"
+              element={!user ? <Login /> : <Navigate to={'/'} />}
             />
             <Route
               path="/cadastro"
-              element={!user ? <Cadastro /> : <Navigate to={'/home'} />}
+              element={!user ? <Cadastro /> : <Navigate to={'/'} />}
             />
             <Route
-              path="/home"
-              element={user ? <Home /> : <Navigate to={'/'} />}
+              path="/"
+              element={user ? <Home /> : <Navigate to={'/login'} />}
             />
             <Route
               path="/usuarios"
-              element={user ? <Usuarios /> : <Navigate to={'/'} />}
+              element={user ? <Usuarios /> : <Navigate to={'/login'} />}
             />
             <Route path="/recuperar-senha" element={<RecuperarSenha />} />
             <Route path="/novo-usuario" element={<NovoUsuario />} />

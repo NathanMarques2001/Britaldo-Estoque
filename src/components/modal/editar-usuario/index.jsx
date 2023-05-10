@@ -7,8 +7,9 @@ import { Loading } from '../../loading'
 import { BotaoEscuro } from '../../button/botao-escuro'
 //funções,variaveis e estilos
 import './style.css'
+import UsersCollection from '../../../services/firestore/UsersCollection'
 
-export function ModalAdicionaUsuario({ abrir, fechar, nome, setNome, email, cargo, setCargo, permissao, setPermissao }) {
+export function ModalEditaUsuario({ abrir, fechar, nome, email, cargo, permissao, id }) {
   const [form, setForm] = useState({
     nome: nome,
     email: email,
@@ -22,24 +23,44 @@ export function ModalAdicionaUsuario({ abrir, fechar, nome, setNome, email, carg
     ],
   })
 
+  const usersCollection = new UsersCollection()
   const [loading, setLoading] = useState(false)
 
-  const reiniciaFormulario = () => {
+  const atualizaNome = (event) => {
     setForm({
-      nome: '',
-      cargo: '',
-      permissao: '',
-      opcao: '',
+      ...form,
+      nome: event.target.value,
     })
   }
 
-  const enviaFormulario = (event) => {
-    event.preventDefault()
-
+  const atualizaCargo = (event) => {
+    setForm({
+      ...form,
+      cargo: event.target.value,
+    })
   }
 
-  const [desabilita, setDesabilita] = useState(false)
-  permissao === "Superadmin" ? setDesabilita(true) : setDesabilita(false)
+  const atualizaPermissao = (event) => {
+    setForm({
+      ...form,
+      permissao: event.target.value,
+    })
+  }
+
+  const enviaFormulario = async (event) => {
+    event.preventDefault()
+    //destructuring
+    const { opcoes, ...user } = form
+    try {
+      setLoading(true)
+      await usersCollection.patch(id, user)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+      fechar()
+    }
+  }
 
   return (
     <>
@@ -66,7 +87,7 @@ export function ModalAdicionaUsuario({ abrir, fechar, nome, setNome, email, carg
                     placeholder="Insira o nome do usuário"
                     required
                     value={form.nome}
-                    onChange={setNome}
+                    onChange={atualizaNome}
                   />
                 </div>
 
@@ -88,10 +109,9 @@ export function ModalAdicionaUsuario({ abrir, fechar, nome, setNome, email, carg
                     name="permissoes"
                     id="modalUser-permissoes"
                     className="input-ModalUser"
-                    disabled={desabilita}
                     required
                     value={form.permissao}
-                    onChange={setPermissao}
+                    onChange={atualizaPermissao}
                   >
                     {form.opcoes.map((itens) => (
                       <option key={itens.value} value={itens.value}>
@@ -110,7 +130,7 @@ export function ModalAdicionaUsuario({ abrir, fechar, nome, setNome, email, carg
                     placeholder="Insira o cargo"
                     required
                     value={form.cargo}
-                    onChange={setCargo}
+                    onChange={atualizaCargo}
                   />
                 </div>
                 <div className="label-input-modalUser" id='container-botao-modalUser'>

@@ -16,7 +16,7 @@ export function Navbar() {
       .sair()
       .then(() => {
         setLoading(false)
-        navigate('/')
+        navigate('/login')
       })
       .catch((error) => {
         setLoading(false)
@@ -30,7 +30,7 @@ export function Navbar() {
         <img src={Logo} alt="logo-nav" id="logo-nav" />
         <div id='container-links-navbar'>
           <div id="links-navbar">
-            <Link to="/home" className="link-nav">
+            <Link to="/" className="link-nav">
               Estoque
             </Link>
             <Link to="/usuarios" className="link-nav">

@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { validaEmail, validaSenha } from '../../utils/regex'
 import AuthService from '../../services/auth/AuthService'
-import { doc, setDoc } from 'firebase/firestore'
-import { db } from '../../services/firebaseConfig'
 import { Loading } from '../../components/loading'
 import { BotaoEscuro } from '../../components/button/botao-escuro'
 import UsersCollection from '../../services/firestore/UsersCollection'
@@ -144,7 +142,7 @@ export function Cadastro() {
               type="text"
               id="cadastro-nome"
               className="input-cadastro"
-              placeholder="Insira o nome do usuário"
+              placeholder="Insira seu nome"
               required
               value={form.nome}
               onChange={atualizaNome}
@@ -200,7 +198,7 @@ export function Cadastro() {
               type="text"
               id="cadastro-cargo"
               className="input-cadastro"
-              placeholder="Insira o cargo"
+              placeholder="Insira seu cargo"
               required
               value={form.cargo}
               onChange={atualizaCargo}
@@ -209,7 +207,7 @@ export function Cadastro() {
           <div className="label-input-cadastro" id='container-botao-cadastro'>
             <BotaoEscuro texto="Salvar" />
             <button onClick={e => { e.preventDefault()
-            navigate('/')}} id='botao-cancelar-cadastro'>Cancelar</button>
+            navigate('/login')}} id='botao-cancelar-cadastro'>Cancelar</button>
           </div>
         </form>
       </div>

@@ -1,0 +1,63 @@
+#background-modalProdutos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-absolut);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+#container-icone-modalProdutos {
+  width: 100%;
+  text-align: end;
+}
+
+#icone-modalProdutos:hover {
+  cursor: pointer;
+}
+
+#container-modalProdutos {
+  width: 40%;
+  background-color: var(--lightgray);
+  border: 2px solid var(--margin);
+  border-radius: 12px;
+  position: absolute;
+  padding: 3%;
+}
+
+#container-titulo-modalProdutos {
+  width: 100%;
+  text-align: center;
+}
+
+#modalProdutos-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.label-input-modalProdutos {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5%;
+}
+
+.input-ModalProdutos {
+  padding: 3%;
+  border: 1px solid var(--margin);
+  border-radius: 6px;
+}
+
+div form div label {
+  padding: 1%;
+}
+
+#modalProdutos-quantidade {
+  width: 20%;
+}

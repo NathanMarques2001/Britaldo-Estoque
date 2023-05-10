@@ -6,22 +6,35 @@ import { BotaoClaro } from '../../components/button/botao-claro'
 import './style.css'
 import UsersCollection from '../../services/firestore/UsersCollection'
 import { useAuthContext } from '../../contexts/auth/authContext'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NovoUsuario } from '../novo-usuario'
+import { ModalAdicionarProduto } from '../../components/modal/adicionar-produto'
 
 export function Home() {
-  const navigate = useNavigate()
+  const [abrir, setAbrir] = useState(false)
   const [validaNovo, setValidaNovo] = useState(false)
   const { user } = useAuthContext()
-  new UsersCollection().validaPermissao(user.uid).then((response) => response ? setValidaNovo(false) : setValidaNovo(true)).catch((error) => error)
+  const usersCollection = new UsersCollection()
+
+  useEffect(() => {
+    usersCollection.validaPermissao(user.uid).then((response) => response ? setValidaNovo(false) : setValidaNovo(true)).catch((error) => error)
+  }, [])
+
+  function abreModal() {
+    setAbrir(true)
+  }
+
+  function fechaModal() {
+    setAbrir(false)
+  }
 
   return (
     <>
       {validaNovo ? <NovoUsuario /> : <></>}
+      {abrir ? <ModalAdicionarProduto abrir={abrir} fechar={fechaModal} /> : <></>}
       <Navbar />
       <div id="container-home">
-        <BotaoClaro texto="Adicionar produto" />
+        <BotaoClaro texto="Adicionar produto" abreModal={abreModal} />
         <input
           type="search"
           name="nome-produto"
