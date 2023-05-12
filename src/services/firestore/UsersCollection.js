@@ -46,9 +46,6 @@ export default class UsersCollection {
     if (docSnap.exists()) {
       usuario = docSnap.data();
     }
-    if (usuario?.permissao == 'Superadmin' || usuario?.permissao == 'Admin' || usuario?.permissao == 'User') {
-      return true;
-    }
-    return false;
+    return usuario.permissao;
   }
 }

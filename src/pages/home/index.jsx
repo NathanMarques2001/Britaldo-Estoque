@@ -1,10 +1,9 @@
 //componentes
-import { Tabela } from '../../components/tabela'
+import { TabelaProdutos } from '../../components/tabela-produtos'
 import { Navbar } from '../../components/navbar'
 import { BotaoClaro } from '../../components/button/botao-claro'
 //funções,variaveis e estilos
 import './style.css'
-import UsersCollection from '../../services/firestore/UsersCollection'
 import { useAuthContext } from '../../contexts/auth/authContext'
 import { useEffect, useState } from 'react'
 import { NovoUsuario } from '../novo-usuario'
@@ -14,15 +13,22 @@ export function Home() {
   const [abrir, setAbrir] = useState(false)
   const [validaNovo, setValidaNovo] = useState(false)
   const [nomeFiltro, setFiltroNome] = useState("")
-  const { user } = useAuthContext()
-  const usersCollection = new UsersCollection()
+  const { permissao } = useAuthContext()
 
   useEffect(() => {
-    usersCollection.validaPermissao(user.uid).then((response) => response ? setValidaNovo(false) : setValidaNovo(true)).catch((error) => error)
-  }, [])
+    if (permissao === 'New User') {
+      setValidaNovo(true);
+    } else {
+      setValidaNovo(false)
+    }
+  }, [permissao])
 
   function abreModal() {
-    setAbrir(true)
+    if (permissao === 'Superadmin' || permissao === 'Admin') {
+      setAbrir(true)
+    } else {
+      alert("Não é admin")
+    }
   }
 
   function fechaModal() {
@@ -37,7 +43,7 @@ export function Home() {
 
   return (
     <>
-      {validaNovo ? <NovoUsuario /> : <></>}
+      {validaNovo && <NovoUsuario />}
       {abrir ? <ModalAdicionarProduto abrir={abrir} fechar={fechaModal} /> : <></>}
       <Navbar />
       <div id="container-home">
@@ -51,11 +57,9 @@ export function Home() {
           onChange={atualizaFiltro}
         />
 
-        <Tabela
-          titulo2="Quantidade"
-          titulo3="Observações"
-          tabela="produtos"
+        <TabelaProdutos
           filtro={lowerFiltro}
+          permissao={permissao}
         />
       </div>
     </>

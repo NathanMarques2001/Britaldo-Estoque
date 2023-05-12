@@ -3,49 +3,29 @@ import Baixa from '../../assets/baixa.svg'
 import Editar from '../../assets/editar.svg'
 import Excluir from '../../assets/excluir.svg'
 import { useEffect, useState } from 'react'
-import UsersCollection from '../../services/firestore/UsersCollection'
 import ProdutosCollection from '../../services/firestore/ProdutosCollection'
-import { traduzPermissao } from '../../utils/formataDados.js'
 import { Loading } from '../loading'
-import { ModalEditaUsuario } from '../modal/editar-usuario'
 import { ModalEditaProduto } from '../modal/editar-produto'
 
-export function Tabela({ titulo2, titulo3, tabela, filtro }) {
+export function TabelaProdutos({ filtro, permissao }) {
   const [produtos, setProdutos] = useState([{
     nome: '',
     quantidade: 0,
     observacoes: '',
     id: ''
   }])
-  const [usuarios, setUsuarios] = useState([{
-    nome: '',
-    email: '',
-    cargo: '',
-    permissao: '',
-    id: ''
-  }])
-  const [usuario, setUsuario] = useState({})
+
   const [produto, setProduto] = useState({})
-  const [abrirUsuarios, setAbrirUsuarios] = useState(false)
   const [abrirProdutos, setAbrirProdutos] = useState(false)
   const [abrirBaixa, setAbrirBaixa] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const data = tabela === 'produtos' ? produtos : usuarios;
-
-  const usersCollection = new UsersCollection();
   const produtosCollection = new ProdutosCollection();
 
   function abreModal() {
-    if (tabela === 'produtos') {
-      setLoading(true)
-      setAbrirProdutos(true)
-      setLoading(false)
-    } else {
-      setLoading(true)
-      setAbrirUsuarios(true)
-      setLoading(false)
-    }
+    setLoading(true)
+    setAbrirProdutos(true)
+    setLoading(false)
   }
 
   function abreModalBaixa() {
@@ -53,11 +33,7 @@ export function Tabela({ titulo2, titulo3, tabela, filtro }) {
   }
 
   function fechaModal() {
-    if (tabela === 'produtos') {
-      setAbrirProdutos(false)
-    } else {
-      setAbrirUsuarios(false)
-    }
+    setAbrirProdutos(false)
   }
 
   function fechaModalBaixa() {
@@ -65,12 +41,20 @@ export function Tabela({ titulo2, titulo3, tabela, filtro }) {
   }
 
   useEffect(() => {
-    if (tabela === 'produtos') {
-      produtosCollection.get(setProdutos);
-    } else {
-      usersCollection.get(setUsuarios);
-    }
-  }, [])
+    setLoading(true);
+    produtosCollection.get((produtos) => {
+      setProdutos(produtos.sort((a, b) => {
+        if (a.nome < b.nome) {
+          return -1;
+        }
+        if (a.nome > b.nome) {
+          return 1;
+        }
+        return 0;
+      }));
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <>
@@ -79,20 +63,20 @@ export function Tabela({ titulo2, titulo3, tabela, filtro }) {
         <thead>
           <tr>
             <th>Nome</th>
-            <th>{titulo2}</th>
-            <th>{titulo3}</th>
+            <th>Quantidade</th>
+            <th>Observações</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {data.filter(filtrado => filtrado.nome.toLowerCase().includes(filtro)).map((item) => (
+          {produtos.filter(filtrado => filtrado.nome.toLowerCase().includes(filtro)).map((item) => (
             <tr key={item.id}>
               <td>{item.nome}</td>
-              <td>{item.quantidade || item.email}</td>
-              <td>{item.observacoes || traduzPermissao(item.permissao)}</td>
+              <td>{item.quantidade}</td>
+              <td>{item.observacoes}</td>
               <td id="container-botao-tabela">
                 {
-                  tabela === 'produtos' ? <button onClick={async () => {
+                  <button onClick={async () => {
                     try {
                       const product = await produtosCollection.getProduto(item.id);
                       setProduto(product);
@@ -102,7 +86,7 @@ export function Tabela({ titulo2, titulo3, tabela, filtro }) {
                     }
                   }} id="btn-baixa" className="botao-tabela">
                     <img src={Baixa} alt="" className="img-botao" id="img-baixa" />
-                  </button> : <></>
+                  </button>
                 }
                 {abrirBaixa &&
                   <ModalEditaProduto
@@ -115,32 +99,22 @@ export function Tabela({ titulo2, titulo3, tabela, filtro }) {
                     modalBaixa={true}
                   />}
                 <button onClick={async () => {
-                  try {
-                    if (tabela === 'produtos') {
+                  if (permissao === 'Superadmin' || permissao === 'Admin') {
+                    try {
                       const product = await produtosCollection.getProduto(item.id);
                       setProduto(product);
-                    } else {
-                      const user = await usersCollection.getUser(item.id);
-                      setUsuario(user);
+                      abreModal();
+                    } catch (error) {
+                      console.log(error);
                     }
-                    abreModal();
-                  } catch (error) {
-                    console.log(error);
+                  } else {
+                    alert("Não é admin")
                   }
+
                 }} id="btn-editar" className="botao-tabela">
                   <img src={Editar} alt="" className="img-botao" id="img-editar" />
                 </button>
-                {abrirUsuarios ?
-                  <ModalEditaUsuario
-                    abrir={abrirUsuarios}
-                    fechar={fechaModal}
-                    nome={usuario.nome}
-                    email={usuario.email}
-                    cargo={usuario.cargo}
-                    permissao={usuario.permissao}
-                    id={usuario.id}
-                  /> : <></>}
-                {abrirProdutos ?
+                {abrirProdutos &&
                   <ModalEditaProduto
                     abrir={abrirProdutos}
                     fechar={fechaModal}
@@ -149,13 +123,18 @@ export function Tabela({ titulo2, titulo3, tabela, filtro }) {
                     observacoes={produto.observacoes}
                     id={produto.id}
                     modalBaixa={false}
-                  /> : <></>
+                  />
                 }
-                {
-                  item.permissao === 'Superadmin' ? <></> : <button id="btn-excluir" className="botao-tabela">
-                    <img src={Excluir} alt="" className="img-botao" id="img-excluir" />
-                  </button>
-                }
+                <button onClick={async () => {
+                  if (permissao === 'Superadmin' || permissao === 'Admin') {
+                    alert("Função que exclui")
+                  } else {
+                    alert("Não é admin")
+                  }
+
+                }} id="btn-excluir" className="botao-tabela">
+                  <img src={Excluir} alt="" className="img-botao" id="img-excluir" />
+                </button>
               </td>
             </tr>
           ))}
