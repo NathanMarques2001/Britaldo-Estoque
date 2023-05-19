@@ -9,7 +9,7 @@ import { BotaoEscuro } from '../../button/botao-escuro'
 import './style.css'
 import UsersCollection from '../../../services/firestore/UsersCollection'
 
-export function ModalEditaUsuario({ abrir, fechar, nome, email, cargo, permissao, id, superadmin }) {
+export function ModalEditaUsuario({ abrir, fechar, nome, email, cargo, permissao, id }) {
   const [form, setForm] = useState({
     nome: nome,
     email: email,
@@ -53,7 +53,7 @@ export function ModalEditaUsuario({ abrir, fechar, nome, email, cargo, permissao
     const { opcoes, ...user } = form
     try {
       setLoading(true)
-      if (superadmin === 'Superadmin') {
+      if (permissao === 'Superadmin') {
         user.permissao = 'Superadmin';
       }
       await usersCollection.patch(id, user)

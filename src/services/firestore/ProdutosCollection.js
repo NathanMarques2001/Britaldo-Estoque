@@ -1,5 +1,5 @@
 import { db } from "../firebaseConfig.js";
-import { addDoc, collection, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 
 export default class ProdutosCollection {
 
@@ -34,7 +34,7 @@ export default class ProdutosCollection {
   }
 
   //Função que deleta um documento
-  async delete() {
-    //Lógica aqui
+  async delete(id) {
+    await deleteDoc(doc(db, "produtos", id));
   }
 }

@@ -18,6 +18,7 @@ export function Login() {
     email: '',
     senha: '',
   })
+  const authService = new AuthService();
 
   const atualizaEmail = (event) => {
     setForm({
@@ -39,7 +40,7 @@ export function Login() {
     if (validaEmail(form.email) && validaSenha(form.senha)) {
       setLoading(true)
 
-      new AuthService()
+      authService
         .logar(form.email, form.senha)
         .then((response) => {
           setLoading(false);
@@ -86,7 +87,7 @@ export function Login() {
           <button id='botao-criar-conta' onClick={e => navigate("/cadastro")}>Criar conta</button>
           <Link className='label-login' to='/recuperar-senha'>Esqueceu sua senha?</Link>
         </div>
-        <img src={ImgLogin} id="ImgLogin" alt='imagem-login'/>
+        <img src={ImgLogin} id="ImgLogin" alt='imagem-login' />
       </div>
     </>
   )
