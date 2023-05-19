@@ -8,14 +8,13 @@ import AuthService from '../../services/auth/AuthService'
 export function NovoUsuario() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
+  const authService = new AuthService()
 
   function voltarAoLogin() {
     setLoading(true)
-    new AuthService()
-      .sair()
+    authService.sair()
       .then(() => {
         setLoading(false)
-        navigate('/')
       })
       .catch((error) => {
         setLoading(false)

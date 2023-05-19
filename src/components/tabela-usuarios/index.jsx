@@ -6,6 +6,7 @@ import UsersCollection from '../../services/firestore/UsersCollection'
 import { traduzPermissao } from '../../utils/formataDados.js'
 import { Loading } from '../loading'
 import { ModalEditaUsuario } from '../modal/editar-usuario'
+import AuthService from '../../services/auth/AuthService'
 
 export function TabelaUsuarios({ permissao }) {
   const [usuarios, setUsuarios] = useState([{
@@ -20,6 +21,7 @@ export function TabelaUsuarios({ permissao }) {
   const [loading, setLoading] = useState(false)
 
   const usersCollection = new UsersCollection();
+  const authService = new AuthService();
 
   function abreModal() {
     setLoading(true)
@@ -91,12 +93,17 @@ export function TabelaUsuarios({ permissao }) {
                     cargo={usuario.cargo}
                     permissao={usuario.permissao}
                     id={usuario.id}
-                    superadmin={permissao}
                   />}
                 {
                   item.permissao === 'Superadmin' ? <></> : <button onClick={async () => {
                     if (permissao === 'Superadmin' || permissao === 'Admin') {
-                      alert("Função que exclui")
+                      try {
+                        usersCollection.delete(item.id).then(() => {
+                          authService.deletarUsuario();
+                        })
+                      } catch (error) {
+                        console.log(error);
+                      }
                     } else {
                       alert("Não é admin")
                     }

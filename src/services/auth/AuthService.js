@@ -1,5 +1,5 @@
 import * as firebaseAuth from 'firebase/auth'
-import { auth } from '../firebaseConfig'
+import { app, auth } from '../firebaseConfig'
 
 export default class AuthService {
   logar(email, senha) {
@@ -29,6 +29,15 @@ export default class AuthService {
       })
       .catch((error) => {
         return Promise.reject(error)
+      })
+  }
+
+  deletarUsuario(id) {
+    return firebaseAuth.deleteUser(user)
+      .then((response) =>
+        console.log("usuario deletado!"))
+      .catch((error) => {
+        console.log("ERRO!\n" + error)
       })
   }
 }

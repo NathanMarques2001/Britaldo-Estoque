@@ -1,5 +1,5 @@
 import { db } from "../firebaseConfig.js";
-import { collection, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 
 export default class UsersCollection {
 
@@ -34,8 +34,8 @@ export default class UsersCollection {
   }
 
   //Função que deleta um documento
-  async delete() {
-    //Lógica aqui
+  async delete(id) {
+    await deleteDoc(doc(db, "users", id));
   }
 
   //Função que valida a permissão do usuário

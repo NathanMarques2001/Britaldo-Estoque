@@ -127,7 +127,11 @@ export function TabelaProdutos({ filtro, permissao }) {
                 }
                 <button onClick={async () => {
                   if (permissao === 'Superadmin' || permissao === 'Admin') {
-                    alert("Função que exclui")
+                    try {
+                      produtosCollection.delete(item.id)
+                    } catch (error) {
+                      console.log(error);
+                    }
                   } else {
                     alert("Não é admin")
                   }
