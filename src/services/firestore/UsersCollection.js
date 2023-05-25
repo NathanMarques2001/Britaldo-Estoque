@@ -35,7 +35,7 @@ export default class UsersCollection {
 
   //Função que deleta um documento
   async delete(id) {
-    await deleteDoc(doc(db, "users", id));
+    await deleteDoc(doc(db, "users", id)).then((response) => response); 
   }
 
   //Função que valida a permissão do usuário
@@ -45,6 +45,8 @@ export default class UsersCollection {
     let usuario;
     if (docSnap.exists()) {
       usuario = docSnap.data();
+    } else {
+      return null;
     }
     return usuario.permissao;
   }

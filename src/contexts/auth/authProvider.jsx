@@ -3,24 +3,39 @@ import { AuthContext } from './authContext'
 import * as firebaseAuth from 'firebase/auth'
 import { auth } from '../../services/firebaseConfig'
 import UsersCollection from '../../services/firestore/UsersCollection';
+import AuthService from '../../services/auth/AuthService';
 
 export default function AuthProvider(props) {
   const [carregandoUsuarioLogado, setCarregandoUsuarioLogado] = useState(true);
   const [user, setUser] = useState(null);
   const [permissao, setPermissao] = useState("");
+  const [excluindoUsuario, setExcluindoUsuario] = useState(false);
   const usersCollection = new UsersCollection();
+  const authService = new AuthService();
 
   useEffect(() => {
     firebaseAuth.onAuthStateChanged(auth, (user) => {
-      setCarregandoUsuarioLogado(false);
-      setUser(user);
       if (user != null) {
-        usersCollection.validaPermissao(user.uid).then((response) => setPermissao(response)).catch((error) => error)
+        usersCollection.validaPermissao(user.uid).then((response) => {
+          if (response == null) {
+            authService.deletarUsuario(user).then((data) => {
+              console.log(data);
+            });
+          } else {
+            setPermissao(response);
+            setUser(user);
+            setCarregandoUsuarioLogado(false);
+          }
+        }).catch(() => {
+          setCarregandoUsuarioLogado(false);
+        });
       } else {
         setPermissao("");
+        setCarregandoUsuarioLogado(false);
       }
-    })
-  }, [])
+    });
+  }, []);
+
 
   return (
     <AuthContext.Provider

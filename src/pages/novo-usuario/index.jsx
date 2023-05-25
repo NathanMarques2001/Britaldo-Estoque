@@ -1,12 +1,10 @@
 import './style.css'
 import imgNovoUsuario from '../../assets/Server-rafiki.svg'
-import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Loading } from '../../components/loading'
 import AuthService from '../../services/auth/AuthService'
 
 export function NovoUsuario() {
-  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const authService = new AuthService()
 
@@ -14,6 +12,7 @@ export function NovoUsuario() {
     setLoading(true)
     authService.sair()
       .then(() => {
+        window.location.reload()
         setLoading(false)
       })
       .catch((error) => {
