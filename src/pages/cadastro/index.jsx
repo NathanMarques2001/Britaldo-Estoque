@@ -131,7 +131,7 @@ export function Cadastro() {
 
   return (
     <>
-      {loading ? <Loading /> : <></>}
+      {loading && <Loading />}
       <div id="background-cadastro">
         <img src={imgCadastro} alt="imagem-cadastro" id='img-cadastro' />
         <form onSubmit={enviaFormulario} id="cadastro-form">
@@ -206,8 +206,10 @@ export function Cadastro() {
           </div>
           <div className="label-input-cadastro" id='container-botao-cadastro'>
             <BotaoEscuro texto="Salvar" />
-            <button onClick={e => { e.preventDefault()
-            navigate('/login')}} id='botao-cancelar-cadastro'>Cancelar</button>
+            <button onClick={e => {
+              e.preventDefault()
+              navigate('/login')
+            }} id='botao-cancelar-cadastro'>Cancelar</button>
           </div>
         </form>
       </div>

@@ -40,7 +40,7 @@ export function RecuperarSenha() {
 
   return (
     <div id="recoverPassword-container">
-      {loading ? <Loading /> : <></>}
+      {loading && <Loading />}
       <img
         src={imgForgotPassword}
         alt="Imagem esqueci a senha"

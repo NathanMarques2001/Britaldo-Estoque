@@ -22,7 +22,7 @@ export function NovoUsuario() {
 
   return (
     <>
-      {loading ? <Loading /> : <></>}
+      {loading && <Loading />}
       <div id='container-novo-usuario'>
         <img src={imgNovoUsuario} alt="" id='img-novo-usuario' />
         <div id='texto-novo-usuario'>

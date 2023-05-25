@@ -9,7 +9,6 @@ export default function AuthProvider(props) {
   const [carregandoUsuarioLogado, setCarregandoUsuarioLogado] = useState(true);
   const [user, setUser] = useState(null);
   const [permissao, setPermissao] = useState("");
-  const [excluindoUsuario, setExcluindoUsuario] = useState(false);
   const usersCollection = new UsersCollection();
   const authService = new AuthService();
 
