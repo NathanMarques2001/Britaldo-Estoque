@@ -4,19 +4,17 @@ import { Link } from 'react-router-dom'
 import AuthService from '../../services/auth/AuthService'
 import { Loading } from '../loading'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 export function Navbar() {
   const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
 
   const logout = () => {
     setLoading(true)
     new AuthService()
       .sair()
       .then(() => {
+        window.location.reload()
         setLoading(false)
-        navigate('/login')
       })
       .catch((error) => {
         setLoading(false)

@@ -98,8 +98,8 @@ export function TabelaUsuarios({ permissao }) {
                   item.permissao === 'Superadmin' ? <></> : <button onClick={async () => {
                     if (permissao === 'Superadmin' || permissao === 'Admin') {
                       try {
-                        usersCollection.delete(item.id).then(() => {
-                          authService.deletarUsuario();
+                        usersCollection.delete(item.id).then((response) => {
+                          console.log(response)
                         })
                       } catch (error) {
                         console.log(error);

@@ -1,6 +1,6 @@
 //bibliotecas
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 //componentes
 import { BotaoEscuro } from '../../components/button/botao-escuro'
 import ImgLogin from '../../assets/rafiki.svg'
@@ -53,7 +53,7 @@ export function Login() {
 
   return (
     <>
-      {loading ? <Loading /> : <></>}
+      {loading && <Loading />}
       <div id="body-login">
         <div id="container-login">
           <img src={ImgLogo} id="ImgLogo" />
@@ -84,8 +84,8 @@ export function Login() {
             />
             <BotaoEscuro texto="Entrar" />
           </form>
-          <button id='botao-criar-conta' onClick={e => navigate("/cadastro")}>Criar conta</button>
-          <Link className='label-login' to='/recuperar-senha'>Esqueceu sua senha?</Link>
+          <button id='botao-criar-conta' className='btn-login' onClick={e => navigate("/cadastro")}>Criar conta</button>
+          <p className='label-login' id='link-recuperar-senha' onClick={e => navigate('/recuperar-senha')}>Esqueceu sua senha?</p>
         </div>
         <img src={ImgLogin} id="ImgLogin" alt='imagem-login' />
       </div>

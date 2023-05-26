@@ -59,6 +59,10 @@
     width: 50%;
   }
 
+  #container-login {
+    padding: 5%;
+  }
+
   /* Componente Tabela */
   #container-botao-tabela button:nth-child(1),
   #container-botao-tabela button:nth-child(2) {
@@ -74,13 +78,17 @@
     font-size: 12px;
   }
 
+  #link-recuperar-senha {
+    font-size: 10px;
+  }
+
   /* Componentes */
-  #dark-button-texto {
-    font-size: 16px
+  .btn-login {
+    font-size: 12px
   }
 
   #light-button-texto {
-    font-size: 16px
+    font-size: 12px
   }
-
 }
+
