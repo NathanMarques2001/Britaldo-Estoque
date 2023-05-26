@@ -5,6 +5,7 @@ import { Cadastro } from '../cadastro';
 import AuthService from '../../services/auth/AuthService';
 import { toBeCalledWithAsync } from '../../utils/testes';
 import 'jest-extended';
+import { usuarioValido } from './mock';
 
 describe('Cadastro Page', () => {
   expect.extend({ toBeCalledWithAsync });
@@ -19,13 +20,6 @@ describe('Cadastro Page', () => {
       </Router>
     );
   });
-
-  const usuarioJaExiste = {
-    nome: 'Administrador',
-    email: 'britaldoestoque@gmail.com',
-    senha: '123456',
-    cargo: 'Superadministrador'
-  };
 
   afterEach(() => {
     authServiceMock.mockClear();
@@ -67,10 +61,10 @@ describe('Cadastro Page', () => {
     const botaoSalvar = screen.getByText('Salvar');
     const botaoCancelar = screen.getByText('Cancelar');
 
-    fireEvent.change(inputNome, { target: { value: usuarioJaExiste.nome } });
-    fireEvent.change(inputEmail, { target: { value: usuarioJaExiste.email } });
-    fireEvent.change(inputSenha, { target: { value: usuarioJaExiste.senha } });
-    fireEvent.change(inputCargo, { target: { value: usuarioJaExiste.cargo } });
+    fireEvent.change(inputNome, { target: { value: usuarioValido.nome } });
+    fireEvent.change(inputEmail, { target: { value: usuarioValido.email } });
+    fireEvent.change(inputSenha, { target: { value: usuarioValido.senha } });
+    fireEvent.change(inputCargo, { target: { value: usuarioValido.cargo } });
     fireEvent.click(botaoSalvar);
     fireEvent.click(botaoCancelar);
   });
@@ -78,6 +72,6 @@ describe('Cadastro Page', () => {
   it('Deve enviar o formulário', async () => {
     expect(authServiceMock).toBeTruthy();
 
-    await expect(authServiceMock).toBeCalledWithAsync(usuarioJaExiste.email, usuarioJaExiste.senha).catch(e => expect(e).toBeInstanceOf(Error));
+    await expect(authServiceMock).toBeCalledWithAsync(usuarioValido.email, usuarioValido.senha).catch(e => expect(e).toBeInstanceOf(Error));
   })
 });

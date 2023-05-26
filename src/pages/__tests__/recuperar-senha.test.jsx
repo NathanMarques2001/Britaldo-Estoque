@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { RecuperarSenha } from '../recuperar-senha';
 import { toBeCalledWithAsync } from '../../utils/testes';
+import { usuarioValido, usuarioInvalido } from './mock';
 
 describe('Recuperar senha page', () => {
   expect.extend({ toBeCalledWithAsync });
@@ -19,14 +20,6 @@ describe('Recuperar senha page', () => {
       </Router>
     );
   });
-
-  const validUserMock = {
-    email: 'britaldoestoque@gmail.com',
-  };
-
-  const invalidUserMock = {
-    email: 'emailinvalido@email.com',
-  };
 
   afterEach(() => {
     authServiceMock.recuperarSenha.mockClear();
@@ -51,7 +44,7 @@ describe('Recuperar senha page', () => {
     const botaoEnviar = screen.getByText('Enviar');
     const botaoCancelar = screen.getByText('Cancelar');
 
-    fireEvent.change(inputEmail, { target: { value: validUserMock.email } });
+    fireEvent.change(inputEmail, { target: { value: usuarioValido.email } });
     fireEvent.click(botaoEnviar);
     fireEvent.click(botaoCancelar);
   });
@@ -59,8 +52,8 @@ describe('Recuperar senha page', () => {
   it('Deve enviar o formulário', async () => {
     expect(authServiceMock).toBeTruthy();
 
-    await expect(authServiceMock.recuperarSenha).toBeCalledWithAsync(expect.objectContaining(validUserMock));
-    await expect(authServiceMock.recuperarSenha).toBeCalledWithAsync(expect.objectContaining(invalidUserMock)).catch(e =>
+    await expect(authServiceMock.recuperarSenha).toBeCalledWithAsync(expect.objectContaining(usuarioValido.email));
+    await expect(authServiceMock.recuperarSenha).toBeCalledWithAsync(expect.objectContaining(usuarioInvalido.email)).catch(e =>
       expect(e).toBeInstanceOf(Error)
     );
   });

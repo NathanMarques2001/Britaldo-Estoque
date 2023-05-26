@@ -2,21 +2,25 @@ import { expect, describe, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Home } from '../home';
 import { AuthContext } from '../../contexts/auth/authContext';
+import { usuarioValido } from './mock';
+import { MemoryRouter as Router } from 'react-router-dom';
 
 describe('Home component', () => {
   let authContextMock;
 
   beforeEach(() => {
     authContextMock = {
-      permissao: 'Superadmin',
+      permissao: usuarioValido.permissao,
     };
 
     // Mock da função que consulta o Firestore e define a permissão do usuário
-    const consultaFirestoreMock = vi.fn().mockResolvedValue('Superadmin');
+    const consultaFirestoreMock = vi.fn().mockResolvedValue(authContextMock.permissao);
 
     render(
       <AuthContext.Provider value={authContextMock}>
-        <Home consultaFirestore={consultaFirestoreMock} />
+        <Router>
+          <Home consultaFirestore={consultaFirestoreMock} />
+        </Router>
       </AuthContext.Provider>
     );
   });
