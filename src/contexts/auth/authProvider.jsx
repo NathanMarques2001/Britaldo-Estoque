@@ -19,6 +19,7 @@ export default function AuthProvider(props) {
           if (response == null) {
             authService.deletarUsuario(user).then((data) => {
               console.log(data);
+              setUser(null)
             });
           } else {
             setPermissao(response);
