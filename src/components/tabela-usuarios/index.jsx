@@ -21,7 +21,6 @@ export function TabelaUsuarios({ permissao }) {
   const [loading, setLoading] = useState(false)
 
   const usersCollection = new UsersCollection();
-  const authService = new AuthService();
 
   function abreModal() {
     setLoading(true)
@@ -53,69 +52,71 @@ export function TabelaUsuarios({ permissao }) {
   return (
     <>
       {loading && <Loading />}
-      <table id="tabela-produtos">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Permissão</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {usuarios.map((item) => (
-            <tr key={item.id}>
-              <td>{item.nome}</td>
-              <td>{item.email}</td>
-              <td>{traduzPermissao(item.permissao)}</td>
-              <td id="container-botao-tabela">
-                <button onClick={async () => {
-                  if (permissao === 'Superadmin' || permissao === 'Admin') {
-                    try {
-                      const user = await usersCollection.getUser(item.id);
-                      setUsuario(user);
-                      abreModal();
-                    } catch (error) {
-                      console.log(error);
-                    }
-                  } else {
-                    alert("Não é admin")
-                  }
-                }} id="btn-editar" className="botao-tabela">
-                  <img src={Editar} alt="" className="img-botao" id="img-editar" />
-                </button>
-                {abrirUsuarios &&
-                  <ModalEditaUsuario
-                    abrir={abrirUsuarios}
-                    fechar={fechaModal}
-                    nome={usuario.nome}
-                    email={usuario.email}
-                    cargo={usuario.cargo}
-                    permissao={usuario.permissao}
-                    id={usuario.id}
-                  />}
-                {
-                  item.permissao === 'Superadmin' ? <></> : <button onClick={async () => {
+      <div id="tabela-container">
+        <table id="tabela-produtos">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Permissão</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {usuarios.map((item) => (
+              <tr key={item.id}>
+                <td>{item.nome}</td>
+                <td>{item.email}</td>
+                <td>{traduzPermissao(item.permissao)}</td>
+                <td id="container-botao-tabela">
+                  <button onClick={async () => {
                     if (permissao === 'Superadmin' || permissao === 'Admin') {
                       try {
-                        usersCollection.delete(item.id).then((response) => {
-                          console.log(response)
-                        })
+                        const user = await usersCollection.getUser(item.id);
+                        setUsuario(user);
+                        abreModal();
                       } catch (error) {
                         console.log(error);
                       }
                     } else {
                       alert("Não é admin")
                     }
-                  }} id="btn-excluir" className="botao-tabela">
-                    <img src={Excluir} alt="" className="img-botao" id="img-excluir" />
+                  }} id="btn-editar" className="botao-tabela">
+                    <img src={Editar} alt="" className="img-botao" id="img-editar" />
                   </button>
-                }
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                  {abrirUsuarios &&
+                    <ModalEditaUsuario
+                      abrir={abrirUsuarios}
+                      fechar={fechaModal}
+                      nome={usuario.nome}
+                      email={usuario.email}
+                      cargo={usuario.cargo}
+                      permissao={usuario.permissao}
+                      id={usuario.id}
+                    />}
+                  {
+                    item.permissao === 'Superadmin' ? <></> : <button onClick={async () => {
+                      if (permissao === 'Superadmin' || permissao === 'Admin') {
+                        try {
+                          usersCollection.delete(item.id).then((response) => {
+                            console.log(response)
+                          })
+                        } catch (error) {
+                          console.log(error);
+                        }
+                      } else {
+                        alert("Não é admin")
+                      }
+                    }} id="btn-excluir" className="botao-tabela">
+                      <img src={Excluir} alt="" className="img-botao" id="img-excluir" />
+                    </button>
+                  }
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   )
 }

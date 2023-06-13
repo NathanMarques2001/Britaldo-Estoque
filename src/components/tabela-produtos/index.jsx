@@ -59,91 +59,93 @@ export function TabelaProdutos({ filtro, permissao }) {
   return (
     <>
       {loading && <Loading />}
-      <table id="tabela-produtos">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Quantidade</th>
-            <th>Observações</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {produtos.filter(filtrado => filtrado.nome.toLowerCase().includes(filtro)).map((item) => (
-            <tr key={item.id}>
-              <td>{item.nome}</td>
-              <td>{item.quantidade}</td>
-              <td>{item.observacoes}</td>
-              <td id="container-botao-tabela">
-                {
-                  <button onClick={async () => {
-                    try {
-                      const product = await produtosCollection.getProduto(item.id);
-                      setProduto(product);
-                      abreModalBaixa();
-                    } catch (error) {
-                      console.log(error);
-                    }
-                  }} id="btn-baixa" className="botao-tabela">
-                    <img src={Baixa} alt="" className="img-botao" id="img-baixa" />
-                  </button>
-                }
-                {abrirBaixa &&
-                  <ModalEditaProduto
-                    abrir={abrirBaixa}
-                    fechar={fechaModalBaixa}
-                    nome={produto.nome}
-                    quantidade={produto.quantidade}
-                    observacoes={produto.observacoes}
-                    id={produto.id}
-                    modalBaixa={true}
-                  />}
-                <button onClick={async () => {
-                  if (permissao === 'Superadmin' || permissao === 'Admin') {
-                    try {
-                      const product = await produtosCollection.getProduto(item.id);
-                      setProduto(product);
-                      abreModal();
-                    } catch (error) {
-                      console.log(error);
-                    }
-                  } else {
-                    alert("Não é admin")
-                  }
-
-                }} id="btn-editar" className="botao-tabela">
-                  <img src={Editar} alt="" className="img-botao" id="img-editar" />
-                </button>
-                {abrirProdutos &&
-                  <ModalEditaProduto
-                    abrir={abrirProdutos}
-                    fechar={fechaModal}
-                    nome={produto.nome}
-                    quantidade={produto.quantidade}
-                    observacoes={produto.observacoes}
-                    id={produto.id}
-                    modalBaixa={false}
-                  />
-                }
-                <button onClick={async () => {
-                  if (permissao === 'Superadmin' || permissao === 'Admin') {
-                    try {
-                      produtosCollection.delete(item.id)
-                    } catch (error) {
-                      console.log(error);
-                    }
-                  } else {
-                    alert("Não é admin")
-                  }
-
-                }} id="btn-excluir" className="botao-tabela">
-                  <img src={Excluir} alt="" className="img-botao" id="img-excluir" />
-                </button>
-              </td>
+      <div id="tabela-container">
+        <table id="tabela-produtos">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Quantidade</th>
+              <th>Observações</th>
+              <th>Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {produtos.filter(filtrado => filtrado.nome.toLowerCase().includes(filtro)).map((item) => (
+              <tr key={item.id}>
+                <td>{item.nome}</td>
+                <td>{item.quantidade}</td>
+                <td>{item.observacoes}</td>
+                <td id="container-botao-tabela">
+                  {
+                    <button onClick={async () => {
+                      try {
+                        const product = await produtosCollection.getProduto(item.id);
+                        setProduto(product);
+                        abreModalBaixa();
+                      } catch (error) {
+                        console.log(error);
+                      }
+                    }} id="btn-baixa" className="botao-tabela">
+                      <img src={Baixa} alt="" className="img-botao" id="img-baixa" />
+                    </button>
+                  }
+                  {abrirBaixa &&
+                    <ModalEditaProduto
+                      abrir={abrirBaixa}
+                      fechar={fechaModalBaixa}
+                      nome={produto.nome}
+                      quantidade={produto.quantidade}
+                      observacoes={produto.observacoes}
+                      id={produto.id}
+                      modalBaixa={true}
+                    />}
+                  <button onClick={async () => {
+                    if (permissao === 'Superadmin' || permissao === 'Admin') {
+                      try {
+                        const product = await produtosCollection.getProduto(item.id);
+                        setProduto(product);
+                        abreModal();
+                      } catch (error) {
+                        console.log(error);
+                      }
+                    } else {
+                      alert("Não é admin")
+                    }
+
+                  }} id="btn-editar" className="botao-tabela">
+                    <img src={Editar} alt="" className="img-botao" id="img-editar" />
+                  </button>
+                  {abrirProdutos &&
+                    <ModalEditaProduto
+                      abrir={abrirProdutos}
+                      fechar={fechaModal}
+                      nome={produto.nome}
+                      quantidade={produto.quantidade}
+                      observacoes={produto.observacoes}
+                      id={produto.id}
+                      modalBaixa={false}
+                    />
+                  }
+                  <button onClick={async () => {
+                    if (permissao === 'Superadmin' || permissao === 'Admin') {
+                      try {
+                        produtosCollection.delete(item.id)
+                      } catch (error) {
+                        console.log(error);
+                      }
+                    } else {
+                      alert("Não é admin")
+                    }
+
+                  }} id="btn-excluir" className="botao-tabela">
+                    <img src={Excluir} alt="" className="img-botao" id="img-excluir" />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   )
 }
