@@ -44,7 +44,7 @@ export function Home() {
   return (
     <>
       {validaNovo && <NovoUsuario />}
-      {abrir ? <ModalAdicionarProduto abrir={abrir} fechar={fechaModal} /> : <></>}
+      <ModalAdicionarProduto abrir={abrir} fechar={fechaModal} />
       <Navbar />
       <div id="container-home">
         <BotaoClaro texto="Adicionar produto" abreModal={abreModal} />

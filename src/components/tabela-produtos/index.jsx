@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import ProdutosCollection from '../../services/firestore/ProdutosCollection'
 import { Loading } from '../loading'
 import { ModalEditaProduto } from '../modal/editar-produto'
+import { PopUp } from '../pop-up'
 
 export function TabelaProdutos({ filtro, permissao }) {
   const [produtos, setProdutos] = useState([{
@@ -18,7 +19,9 @@ export function TabelaProdutos({ filtro, permissao }) {
   const [produto, setProduto] = useState({})
   const [abrirProdutos, setAbrirProdutos] = useState(false)
   const [abrirBaixa, setAbrirBaixa] = useState(false)
+  const [abrirPopUp, setAbrirPopUp] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [itemAtual, setItemAtual] = useState({})
 
   const produtosCollection = new ProdutosCollection();
 
@@ -36,8 +39,25 @@ export function TabelaProdutos({ filtro, permissao }) {
     setAbrirProdutos(false)
   }
 
+  function abrePopUp(item) {
+    setAbrirPopUp(true)
+    setItemAtual(item)
+  }
+
+  function fechaPopUp() {
+    setAbrirPopUp(false)
+  }
+
   function fechaModalBaixa() {
     setAbrirBaixa(false)
+  }
+
+  function excluirProduto() {
+    try {
+      produtosCollection.delete(itemAtual.id)
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
@@ -59,6 +79,16 @@ export function TabelaProdutos({ filtro, permissao }) {
   return (
     <>
       {loading && <Loading />}
+      <PopUp
+        abrir={abrirPopUp}
+        fechar={fechaPopUp}
+        mensagem="Você tem certeza de que deseja excluir este produto?
+      Esta ação é irreversível."
+        quantidadeBotoes={2}
+        botao1="Confirmar"
+        botao2="Cancelar"
+        operacao={excluirProduto}
+      />
       <div id="tabela-container">
         <table id="tabela-produtos">
           <thead>
@@ -128,11 +158,7 @@ export function TabelaProdutos({ filtro, permissao }) {
                   }
                   <button onClick={async () => {
                     if (permissao === 'Superadmin' || permissao === 'Admin') {
-                      try {
-                        produtosCollection.delete(item.id)
-                      } catch (error) {
-                        console.log(error);
-                      }
+                      abrePopUp(item)
                     } else {
                       alert("Não é admin")
                     }

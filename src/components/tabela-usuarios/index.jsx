@@ -6,7 +6,7 @@ import UsersCollection from '../../services/firestore/UsersCollection'
 import { traduzPermissao } from '../../utils/formataDados.js'
 import { Loading } from '../loading'
 import { ModalEditaUsuario } from '../modal/editar-usuario'
-import AuthService from '../../services/auth/AuthService'
+import { PopUp } from '../pop-up'
 
 export function TabelaUsuarios({ permissao }) {
   const [usuarios, setUsuarios] = useState([{
@@ -18,6 +18,8 @@ export function TabelaUsuarios({ permissao }) {
   }])
   const [usuario, setUsuario] = useState({})
   const [abrirUsuarios, setAbrirUsuarios] = useState(false)
+  const [abrirPopUp, setAbrirPopUp] = useState(false)
+  const [usuarioAtual, setUsuarioAtual] = useState({})
   const [loading, setLoading] = useState(false)
 
   const usersCollection = new UsersCollection();
@@ -30,6 +32,25 @@ export function TabelaUsuarios({ permissao }) {
 
   function fechaModal() {
     setAbrirUsuarios(false)
+  }
+
+  function abrePopUp(item) {
+    setAbrirPopUp(true)
+    setUsuarioAtual(item)
+  }
+
+  function fechaPopUp() {
+    setAbrirPopUp(false)
+  }
+
+  function excluirUsuario() {
+    try {
+      usersCollection.delete(usuarioAtual.id).then((response) => {
+        console.log(response)
+      })
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
@@ -52,6 +73,15 @@ export function TabelaUsuarios({ permissao }) {
   return (
     <>
       {loading && <Loading />}
+      <PopUp
+        abrir={abrirPopUp}
+        fechar={fechaPopUp}
+        mensagem="Você tem certeza de que deseja excluir este usuário? Todas as informações associadas a este usuário serão permanentemente removidas."
+        quantidadeBotoes={2}
+        botao1="Confirmar"
+        botao2="Cancelar"
+        operacao={excluirUsuario}
+      />
       <div id="tabela-container">
         <table id="tabela-produtos">
           <thead>
@@ -97,15 +127,7 @@ export function TabelaUsuarios({ permissao }) {
                   {
                     item.permissao === 'Superadmin' ? <></> : <button onClick={async () => {
                       if (permissao === 'Superadmin' || permissao === 'Admin') {
-                        try {
-                          usersCollection.delete(item.id).then((response) => {
-                            console.log(response)
-                          })
-                        } catch (error) {
-                          console.log(error);
-                        }
-                      } else {
-                        alert("Não é admin")
+                        abrePopUp(item)
                       }
                     }} id="btn-excluir" className="botao-tabela">
                       <img src={Excluir} alt="" className="img-botao" id="img-excluir" />

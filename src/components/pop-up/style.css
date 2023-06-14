@@ -1,0 +1,40 @@
+#background-popup-geral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-absolut);
+    z-index: 1000;
+}
+
+#container-popup-geral {
+    background-color: var(--lightgray);
+    padding: 3% 4.5%;
+    border-radius: 5px;
+}
+
+#container-texto-popup-geral {
+    margin: 0 0 15% 0;
+}
+
+#container-botoes{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+}
+
+.botao-popup-geral{
+    width: 30%;
+    padding: 3% 6%;
+    background-color: blue;
+}
+
+.botao-popup-geral:hover{
+    cursor: pointer;
+    background-color: azure;
+}

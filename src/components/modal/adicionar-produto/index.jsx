@@ -5,6 +5,7 @@ import { useState } from 'react'
 //componentes
 import { Loading } from '../../loading'
 import { BotaoEscuro } from '../../button/botao-escuro'
+import { PopUp } from '../../pop-up'
 //funções,variaveis e estilos
 import './style.css'
 import ProdutosCollection from '../../../services/firestore/ProdutosCollection'
@@ -18,6 +19,8 @@ export function ModalAdicionarProduto({ abrir, fechar }) {
 
   const produtosCollection = new ProdutosCollection()
   const [loading, setLoading] = useState(false)
+  const [abrirPopUp, setAbrirPopUp] = useState(false)
+  const [produtoAdicionado, setProdutoAdicionado] = useState({})
 
   const atualizaNome = (event) => {
     setForm({
@@ -40,21 +43,39 @@ export function ModalAdicionarProduto({ abrir, fechar }) {
     })
   }
 
+  function abrePopUp() {
+    setAbrirPopUp(true)
+  }
+
+  function fechaPopUp() {
+    setAbrirPopUp(false)
+  }
+
   const enviaFormulario = async (event) => {
     event.preventDefault()
     try {
       setLoading(true);
       await produtosCollection.post(form);
+      setProdutoAdicionado(form);
     } catch (error) {
       console.log(error);
     }
     setLoading(false);
     fechar();
+    abrePopUp();
   }
 
   return (
     <>
       {loading ? <Loading /> : <></>}
+      <PopUp
+        abrir={abrirPopUp}
+        fechar={fechaPopUp}
+        mensagem={`${produtoAdicionado.nome} adicionado com sucesso ao estoque!`}
+        quantidadeBotoes={1}
+        botao1="OK"
+        operacao={fechaPopUp}
+      />
       <Dialog open={abrir}>
         <DialogContent>
           <div id="background-modalProdutos">
