@@ -1,11 +1,9 @@
-//bibliotecas
 import { Dialog, DialogContent } from '@radix-ui/react-dialog'
 import { RxCross1 } from 'react-icons/rx'
 import { useEffect, useState } from 'react'
-//componentes
 import { Loading } from '../../loading'
 import { BotaoEscuro } from '../../button/botao-escuro'
-//funções,variaveis e estilos
+import { PopUp } from '../../pop-up'
 import './style.css'
 import ProdutosCollection from '../../../services/firestore/ProdutosCollection'
 import { validaQuantidade } from '../../../utils/validaDados'
@@ -18,7 +16,6 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
   })
 
   const [baixa, setBaixa] = useState(0)
-
   const produtosCollection = new ProdutosCollection()
   const [loading, setLoading] = useState(false)
 
@@ -55,7 +52,7 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
         await produtosCollection.patch(id, form);
         fechar();
       } else {
-        alert("Menor que 0")
+        alert("Quantidade não pode ser menor que 0")
       }
     } catch (error) {
       console.log(error);

@@ -1,0 +1,22 @@
+#container-notFound {
+    width: 100%;
+    text-align: center;
+    height: 100vh;
+    background-color: var(--background);
+}
+
+#imgNotFound {
+    width: 70%;
+    animation: imagem 2.5s;
+}
+
+@keyframes imagem {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

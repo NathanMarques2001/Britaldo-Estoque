@@ -55,6 +55,8 @@ export function ModalEditaUsuario({ abrir, fechar, nome, email, cargo, permissao
       setLoading(true)
       if (permissao === 'Superadmin') {
         user.permissao = 'Superadmin';
+      } else if(permissao === 'Dev'){
+        user.permissao = 'Dev';
       }
       await usersCollection.patch(id, user)
     } catch (error) {

@@ -1,9 +1,23 @@
+#tabela-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: scroll;
+  overflow-x: hidden;
+  max-height: 100vh;
+  margin: 3% 0;
+}
+
+#tabela-container::-webkit-scrollbar {
+  width: 0;
+  /* Largura da barra de rolagem */
+}
+
 #tabela-produtos {
-  width: 90%;
+  width: 100%;
   background-color: var(--lightgray);
   border-radius: 8px;
-  max-height: 80vh;
-  margin-top: 3%;
+  overflow: auto;
 }
 
 table tr th {

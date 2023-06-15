@@ -8,7 +8,7 @@ export function validaEmail(email) {
 }
 
 export function validaSenha(senha) {
-  const regex = /^[a-zA-Z0-9._%+-=?*&@!]{6,}$/
+  const regex = /^[a-zA-Z0-9._%+-=?*&@!]{6,15}$/
 
   if (regex.test(senha)) {
     return true

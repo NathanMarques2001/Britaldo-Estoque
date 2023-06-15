@@ -10,4 +10,7 @@ export function traduzPermissao(permissao) {
   else if (permissao === 'New User') {
     return permissao = 'Novo Usuário'
   }
+  else if(permissao === 'Dev') {
+    return permissao = 'Desenvolvedor'
+  }
 }
