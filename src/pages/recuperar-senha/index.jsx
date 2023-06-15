@@ -8,12 +8,19 @@ import { Loading } from '../../components/loading'
 import './style.css'
 import { validaEmail } from '../../utils/regex'
 import AuthService from '../../services/auth/AuthService'
+import { PopUp } from '../../components/pop-up'
 
 export function RecuperarSenha() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const authService = new AuthService()
+  const [abrePopUp, setAbrePopUp] = useState(false)
+
+  function fechaPopUp(){
+    setAbrePopUp(false)
+    navigate("/login")
+  }
   //Função que envia o formulário
   function handleSubmit(event) {
     setLoading(true)
@@ -24,6 +31,7 @@ export function RecuperarSenha() {
         .then((response) => {
           console.log('Email enviado com sucesso')
           setEmail('')
+          setAbrePopUp(true)
           setLoading(false)
         })
         .catch((error) => {
@@ -41,6 +49,14 @@ export function RecuperarSenha() {
   return (
     <div id="recoverPassword-container">
       {loading && <Loading />}
+      <PopUp 
+      abrir={abrePopUp}
+      fechar={fechaPopUp}
+      mensagem="E-mail enviado com sucesso! Favor verificar sua caixa de emtrada."
+      quantidadeBotoes={1}
+      botao1="OK"
+      operacao={fechaPopUp}
+      />
       <img
         src={imgForgotPassword}
         alt="Imagem esqueci a senha"

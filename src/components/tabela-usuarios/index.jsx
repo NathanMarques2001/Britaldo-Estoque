@@ -117,7 +117,7 @@ export function TabelaUsuarios({ permissao }) {
                 <td>{traduzPermissao(item.permissao)}</td>
                 <td id="container-botao-tabela">
                   <button onClick={async () => {
-                    if (permissao === 'Superadmin' || permissao === 'Admin') {
+                    if (permissao === 'Superadmin' || permissao === 'Admin' || permissao === 'Dev') {
                       try {
                         const user = await usersCollection.getUser(item.id);
                         setUsuario(user);
@@ -142,8 +142,8 @@ export function TabelaUsuarios({ permissao }) {
                       id={usuario.id}
                     />}
                   {
-                    item.permissao === 'Superadmin' ? <></> : <button onClick={async () => {
-                      if (permissao === 'Superadmin' || permissao === 'Admin') {
+                    item.permissao === 'Superadmin' || item.permissao === 'Dev' ? <></> : <button onClick={async () => {
+                      if (permissao === 'Superadmin' || permissao === 'Admin' || permissao === 'Dev') {
                         abrePopUp(item)
                       } else {
                         abrePopUpAdmin()

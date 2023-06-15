@@ -13,13 +13,14 @@
 
 #container-popup-geral {
     background-color: var(--lightgray);
-    padding: 3% 4.5%;
+    padding: 2% 4%;
     border-radius: 5px;
-    width: 40%;
+    width: 30%;
 }
 
 #container-texto-popup-geral {
     margin: 0 0 15% 0;
+    text-align: center;
 }
 
 #container-botoes{
@@ -27,15 +28,18 @@
     display: flex;
     justify-content: center;
     gap: 10%;
+    text-align: center;
 }
 
 .botao-popup-geral{
     width: 30%;
-    padding: 3% 6%;
-    background-color: blue;
+    padding: 4% 8%;
+    background-color: var(--button);
+    color: var(--lightgray);
+    border: 1px solid var(--margin);
 }
 
 .botao-popup-geral:hover{
     cursor: pointer;
-    background-color: azure;
+    background-color: var(--margin);
 }

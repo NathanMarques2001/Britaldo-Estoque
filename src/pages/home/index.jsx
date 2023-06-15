@@ -14,7 +14,7 @@ export function Home() {
   const [abrir, setAbrir] = useState(false)
   const [validaNovo, setValidaNovo] = useState(false)
   const [nomeFiltro, setFiltroNome] = useState("")
-  const [abrirPopUpAdmin, setAbrirPopUpAdmin]= useState(false)
+  const [abrirPopUpAdmin, setAbrirPopUpAdmin] = useState(false)
   const { permissao } = useAuthContext()
 
   useEffect(() => {
@@ -26,10 +26,10 @@ export function Home() {
   }, [permissao])
 
   function abreModal() {
-    if (permissao === 'Superadmin' || permissao === 'Admin') {
+    if (permissao === 'Superadmin' || permissao === 'Admin' || permissao === 'Dev') {
       setAbrir(true)
     } else {
-     abrePopUpAdmin()
+      abrePopUpAdmin()
     }
   }
 
@@ -41,11 +41,11 @@ export function Home() {
     setFiltroNome(event.target.value);
   }
 
-  function abrePopUpAdmin(){
+  function abrePopUpAdmin() {
     setAbrirPopUpAdmin(true)
   }
 
-  function fechaPopUpAdmin(){
+  function fechaPopUpAdmin() {
     setAbrirPopUpAdmin(false)
   }
 
@@ -54,13 +54,13 @@ export function Home() {
   return (
     <>
       {validaNovo && <NovoUsuario />}
-      <PopUp 
-      abrir={abrirPopUpAdmin}
-      fechar={fechaPopUpAdmin}
-      mensagem="Você não tem permissão para executar está operação!"
-      quantidadeBotoes={1}
-      botao1="OK"
-      operacao={fechaPopUpAdmin}
+      <PopUp
+        abrir={abrirPopUpAdmin}
+        fechar={fechaPopUpAdmin}
+        mensagem="Você não tem permissão para executar está operação!"
+        quantidadeBotoes={1}
+        botao1="OK"
+        operacao={fechaPopUpAdmin}
       />
       <ModalAdicionarProduto abrir={abrir} fechar={fechaModal} />
       <Navbar />

@@ -1,12 +1,9 @@
-//bibliotecas
 import { Dialog, DialogContent } from '@radix-ui/react-dialog'
 import { RxCross1 } from 'react-icons/rx'
 import { useEffect, useState } from 'react'
-//componentes
 import { Loading } from '../../loading'
 import { BotaoEscuro } from '../../button/botao-escuro'
 import { PopUp } from '../../pop-up'
-//funções,variaveis e estilos
 import './style.css'
 import ProdutosCollection from '../../../services/firestore/ProdutosCollection'
 import { validaQuantidade } from '../../../utils/validaDados'
@@ -19,10 +16,8 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
   })
 
   const [baixa, setBaixa] = useState(0)
-
   const produtosCollection = new ProdutosCollection()
   const [loading, setLoading] = useState(false)
-  const [exibirPopUp, setExibirPopUp] = useState(false)
 
   const atualizaNome = (event) => {
     setForm({
@@ -49,10 +44,6 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
     setBaixa(event.target.value)
   }
 
-  function fechaPopUp() {
-    setExibirPopUp(false);
-  }
-
   const enviaFormulario = async (event) => {
     event.preventDefault()
     try {
@@ -60,10 +51,8 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
       if (validaQuantidade(form.quantidade)) {
         await produtosCollection.patch(id, form);
         fechar();
-        setExibirPopUp(true)
-        console.log(exibirPopUp)
       } else {
-        alert("Menor que 0")
+        alert("Quantidade não pode ser menor que 0")
       }
     } catch (error) {
       console.log(error);
@@ -77,19 +66,11 @@ export function ModalEditaProduto({ abrir, fechar, nome, quantidade, observacoes
       ...form,
       quantidade: quantidade - baixa
     })
-  }, [baixa, exibirPopUp])
+  }, [baixa])
 
   return (
     <>
       {loading ? <Loading /> : <></>}
-      <PopUp
-        abrir={exibirPopUp}
-        fechar={fechaPopUp}
-        mensagem="Produto atualizado com sucesso!"
-        quantidadeBotoes={1}
-        botao1="OK"
-        operacao={fechaPopUp}
-      />
       <Dialog open={abrir}>
         <DialogContent>
           <div id="background-modalProdutos">

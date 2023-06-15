@@ -63,6 +63,11 @@ export function ModalAdicionarProduto({ abrir, fechar }) {
     setLoading(false);
     fechar();
     abrePopUp();
+    setForm({
+      nome: '',
+      quantidade: 1,
+      observacoes: ''
+    })
   }
 
   return (
@@ -71,7 +76,7 @@ export function ModalAdicionarProduto({ abrir, fechar }) {
       <PopUp
         abrir={abrirPopUp}
         fechar={fechaPopUp}
-        mensagem={`${produtoAdicionado.nome} adicionado com sucesso ao estoque!`}
+        mensagem={`Produto ${produtoAdicionado.nome} adicionado com sucesso ao estoque!`}
         quantidadeBotoes={1}
         botao1="OK"
         operacao={fechaPopUp}
