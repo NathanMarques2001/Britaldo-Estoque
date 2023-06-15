@@ -15,6 +15,7 @@
     background-color: var(--lightgray);
     padding: 3% 4.5%;
     border-radius: 5px;
+    width: 40%;
 }
 
 #container-texto-popup-geral {

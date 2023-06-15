@@ -8,11 +8,13 @@ import { useAuthContext } from '../../contexts/auth/authContext'
 import { useEffect, useState } from 'react'
 import { NovoUsuario } from '../novo-usuario'
 import { ModalAdicionarProduto } from '../../components/modal/adicionar-produto'
+import { PopUp } from '../../components/pop-up'
 
 export function Home() {
   const [abrir, setAbrir] = useState(false)
   const [validaNovo, setValidaNovo] = useState(false)
   const [nomeFiltro, setFiltroNome] = useState("")
+  const [abrirPopUpAdmin, setAbrirPopUpAdmin]= useState(false)
   const { permissao } = useAuthContext()
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export function Home() {
     if (permissao === 'Superadmin' || permissao === 'Admin') {
       setAbrir(true)
     } else {
-      alert("Não é admin")
+     abrePopUpAdmin()
     }
   }
 
@@ -39,11 +41,27 @@ export function Home() {
     setFiltroNome(event.target.value);
   }
 
+  function abrePopUpAdmin(){
+    setAbrirPopUpAdmin(true)
+  }
+
+  function fechaPopUpAdmin(){
+    setAbrirPopUpAdmin(false)
+  }
+
   const lowerFiltro = nomeFiltro.toLowerCase();
 
   return (
     <>
       {validaNovo && <NovoUsuario />}
+      <PopUp 
+      abrir={abrirPopUpAdmin}
+      fechar={fechaPopUpAdmin}
+      mensagem="Você não tem permissão para executar está operação!"
+      quantidadeBotoes={1}
+      botao1="OK"
+      operacao={fechaPopUpAdmin}
+      />
       <ModalAdicionarProduto abrir={abrir} fechar={fechaModal} />
       <Navbar />
       <div id="container-home">

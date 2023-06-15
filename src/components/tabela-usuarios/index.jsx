@@ -19,6 +19,7 @@ export function TabelaUsuarios({ permissao }) {
   const [usuario, setUsuario] = useState({})
   const [abrirUsuarios, setAbrirUsuarios] = useState(false)
   const [abrirPopUp, setAbrirPopUp] = useState(false)
+  const [abrirPopUpAdmin, setAbrirPopUpAdmin] = useState(false)
   const [usuarioAtual, setUsuarioAtual] = useState({})
   const [loading, setLoading] = useState(false)
 
@@ -41,6 +42,14 @@ export function TabelaUsuarios({ permissao }) {
 
   function fechaPopUp() {
     setAbrirPopUp(false)
+  }
+
+  function abrePopUpAdmin() {
+    setAbrirPopUpAdmin(true)
+  }
+
+  function fechaPopUpAdmin() {
+    setAbrirPopUpAdmin(false)
   }
 
   function excluirUsuario() {
@@ -82,6 +91,14 @@ export function TabelaUsuarios({ permissao }) {
         botao2="Cancelar"
         operacao={excluirUsuario}
       />
+      <PopUp
+        abrir={abrirPopUpAdmin}
+        fechar={fechaPopUpAdmin}
+        mensagem="Você não tem permissão para executar está operação!"
+        quantidadeBotoes={1}
+        botao1="OK"
+        operacao={fechaPopUpAdmin}
+      />
       <div id="tabela-container">
         <table id="tabela-produtos">
           <thead>
@@ -109,7 +126,7 @@ export function TabelaUsuarios({ permissao }) {
                         console.log(error);
                       }
                     } else {
-                      alert("Não é admin")
+                      abrePopUpAdmin()
                     }
                   }} id="btn-editar" className="botao-tabela">
                     <img src={Editar} alt="" className="img-botao" id="img-editar" />
@@ -128,6 +145,8 @@ export function TabelaUsuarios({ permissao }) {
                     item.permissao === 'Superadmin' ? <></> : <button onClick={async () => {
                       if (permissao === 'Superadmin' || permissao === 'Admin') {
                         abrePopUp(item)
+                      } else {
+                        abrePopUpAdmin()
                       }
                     }} id="btn-excluir" className="botao-tabela">
                       <img src={Excluir} alt="" className="img-botao" id="img-excluir" />
