@@ -147,7 +147,7 @@ export function TabelaProdutos({ filtro, permissao }) {
                       modalBaixa={true}
                     />}
                   <button onClick={async () => {
-                    if (permissao === 'Superadmin' || permissao === 'Admin') {
+                    if (permissao === 'Superadmin' || permissao === 'Admin' || permissao === 'Dev') {
                       try {
                         const product = await produtosCollection.getProduto(item.id);
                         setProduto(product);
@@ -174,7 +174,7 @@ export function TabelaProdutos({ filtro, permissao }) {
                     />
                   }
                   <button onClick={async () => {
-                    if (permissao === 'Superadmin' || permissao === 'Admin') {
+                    if (permissao === 'Superadmin' || permissao === 'Admin' || permissao === 'Dev') {
                       abrePopUp(item)
                     } else {
                       abrePopUpAdmin()

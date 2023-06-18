@@ -24,6 +24,10 @@ coverage/
 *.sln
 *.sw?
 
+# Firebase
+.firebase/
+src/services/firebaseConfig.js
+
 # Outros arquivos gerados
 .DS_Store
 .env.local
