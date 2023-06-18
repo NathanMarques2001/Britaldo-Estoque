@@ -1,12 +1,12 @@
 #container-notFound {
     width: 100%;
     text-align: center;
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--background);
 }
 
 #imgNotFound {
-    width: 70%;
+    width: 45%;
     animation: imagem 2.5s;
 }
 
